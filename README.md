@@ -1,2 +1,2 @@
-# schmucklicloud_sdk_js
+# schmuckliCloud SDK for JavaScript
 This is the official SDK for JavaScript.
