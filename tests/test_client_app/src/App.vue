@@ -9,13 +9,18 @@
 import HelloWorld from './components/HelloWorld.vue'
 import { sCStorage } from 'schmucklicloud_storage';
 
-var ref = new sCStorage("test", "foo");
+var ref = new sCStorage("4d4ff55414917628252ebcd373ade72e38005294", "17364a09ed982edb4089d5362e496b13e85b8060d474655ec6b58f57ea18aa60");
+ref.setDataset("abc");
+
+ref.setBucket(11);
+
+ref.getAll("posts");
 
 export default {
   name: 'app',
   data(){
     return {
-      test: ref.api_secret
+      test: ref.dataset
     }
   },
   components: {
