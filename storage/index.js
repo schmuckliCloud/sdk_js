@@ -2,12 +2,9 @@ import * as Config from "./config";
 import axios from "axios";
 
 export class sCStorage {
-  #appid="";
-  #appsecret="";
-
   constructor(app_id, app_secret) {
-    this.#appid = app_id;
-    this.#appsecret = app_secret;
+    this.appid = app_id;
+    this.appsecret = app_secret;
   }
 
   setDataset(dataset_name){
@@ -23,8 +20,8 @@ export class sCStorage {
     return new Promise(function(resolve, reject) {
       axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + global_this.dataset + "&container=" + container_name, {
         headers: {
-          appid: global_this.#appid,
-          appsecret: global_this.#appsecret
+          appid: global_this.appid,
+          appsecret: global_this.appsecret
         }
       }).then(function(result){
         resolve(result);
