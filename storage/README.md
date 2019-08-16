@@ -1,7 +1,10 @@
 # schmuckliCloud Storage SDK for JavaScript
 This is a part package for the schmuckliCloud service. It connects your application to the storage service.
 
-## Setup
+
+## Use in Node.js and other loaders
+
+### Setup
 To install the package, you need the npm CLI. Afterwards, install the package by typing
 
 ```
@@ -29,3 +32,25 @@ reference.setDataset('abc'); //This could be a user id or a simple word.
 ```
 
 Now you are ready to handle all schmuckliCloud Storage requests.
+
+## Use in browser directly
+
+### Setup
+If you want to use the schmuckliCloud service directly in the DOM itself, just simply include the following file in a script tag in before the body tag closes.
+
+```html
+<script src="https://unpkg.com/schmucklicloud_storage/dist/min.js" type="text/javascript"></script>
+```
+
+Now you are ready to contact the schmuckliCloud also via the JavaScript SDK.
+
+### Getting started
+First initialize the object sCStorage in your JavaScript code with the API credentials from your project.
+
+```javascript
+//IMPORTANT: Initialize the object from the 'schmuckliCloud' library.
+var ref = new schmuckliCloud.sCStorage("YOUR_APPID", "YOUR_APPSECRET");
+
+ref.setBucket(201);
+ref.setDataset("abc");
+```
