@@ -1,0 +1,21 @@
+<html>
+<body>
+
+<!--<script src="https://unpkg.com/schmucklicloud_storage/dist/min.js" type="text/javascript"></script>-->
+<script src="../storage/dist/min.js" type="text/javascript"></script>
+<script>
+window.onload = function(){
+  var ref = new schmuckliCloud.sCStorage("4d4ff55414917628252ebcd373ade72e38005294", "17364a09ed982edb4089d5362e496b13e85b8060d474655ec6b58f57ea18aa60");
+  ref.setDataset("abc");
+
+  ref.setBucket(11);
+
+  ref.getAll("post").then(function(result){
+    console.log(result);
+  }).catch(function(e) {
+    console.error(e);
+  });
+}
+</script>
+</body>
+</html>

@@ -38,6 +38,34 @@ export class sCStorage {
       });
     });
   }
+
+  get(container_name, conditions){
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      //Check the properties before sending to the API
+      if (container_name === undefined || container_name === "") {
+        reject(new Error("Please define a container."));
+      }
+
+      if(conditions === undefined || conditions == 0){
+        reject(new Error("Please define at least one condition. If you want to show all entries, please use the method 'getAll'"));
+      }
+
+      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + global_this.dataset + "&container=" + container_name, {
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret
+        }
+      }).then(function(result){
+        if(result.status === 200){
+          var result = new sCResult(result.data.status, result.data.message, result.data.body);
+          resolve(result);
+        } else {
+          reject(new Error("There was a problem with the API endpoint."));
+        }
+      });
+    });
+  }
 }
 
 /*

@@ -4,7 +4,8 @@ module.exports = {
   entry: './index.js',
   output: {
     filename: 'min.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    library: 'schmuckliCloud'
   },
   mode: "production"
 };
