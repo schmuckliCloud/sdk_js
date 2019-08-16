@@ -15,7 +15,7 @@ export class sCStorage {
     this.bucket_id = bucket_id;
   }
 
-  getAll(container_name){
+  getAll(container_name, sorting){
     var global_this = this;
     return new Promise(function(resolve, reject) {
       //Check the properties before sending to the API
@@ -23,7 +23,7 @@ export class sCStorage {
         reject(new Error("Please define a container."));
       }
 
-      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + global_this.dataset + "&container=" + container_name, {
+      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + container_name, {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret
@@ -39,7 +39,7 @@ export class sCStorage {
     });
   }
 
-  get(container_name, conditions){
+  get(container_name, filter, sorting){
     var global_this = this;
     return new Promise(function(resolve, reject) {
       //Check the properties before sending to the API
@@ -47,11 +47,16 @@ export class sCStorage {
         reject(new Error("Please define a container."));
       }
 
-      if(conditions === undefined || conditions == 0){
+      if(filter === undefined || filter == 0){
         reject(new Error("Please define at least one condition. If you want to show all entries, please use the method 'getAll'"));
       }
 
-      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + global_this.dataset + "&container=" + container_name, {
+      if(!(filter instanceof Array)){
+        reject(new Error("Please provide an array containing the conditions."));
+      }
+      var encodedFilter = encodeURI(JSON.stringify(filter));
+
+      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + encodeURI(container_name) + "&filter=" + encodedFilter, {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret

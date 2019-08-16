@@ -26,7 +26,13 @@ export default {
 
       ref.setBucket(11);
 
-      ref.getAll("posts").then(function(result){
+      /*ref.getAll("posts").then(function(result){
+        global_this.message = result;
+      }).catch(function(e) {
+        global_this.message = e;
+      });*/
+
+      ref.get("posts", [{"column": "title", "operator": "==", "value": "test"}]).then(function(result){
         global_this.message = result;
       }).catch(function(e) {
         global_this.message = e;
