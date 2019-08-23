@@ -2,11 +2,10 @@ language: node_js
 node_js:
   - 7
 install: 
-  - cd storage
-  - "npm install"
+  - cd storage # Enter the correct subdirectory
+  - "npm install" # Install the dependencies like webpack
 script:
-  - cd storage
-  - "webpack"
+  - "webpack" #Build the minified version with webpack according to the webpack.config.js
 deploy:
   provider: npm
   email: "julian@schmuckli.net"
