@@ -1,9 +1,11 @@
 language: node_js
 node_js:
   - 7
-script:
+install: 
   - cd storage
   - "npm install"
+script:
+  - cd storage
   - "webpack"
 deploy:
   provider: npm
