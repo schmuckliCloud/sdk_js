@@ -1,3 +1,5 @@
+script:
+  - cd storage
 deploy:
   provider: npm
   email: "julian@schmuckli.net"
