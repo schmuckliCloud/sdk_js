@@ -32,7 +32,13 @@ export default {
         global_this.message = e;
       });*/
 
-      ref.get("posts", [{"column": "title", "operator": "==", "value": "test"}]).then(function(result){
+      ref.get("posts", [
+        {
+          "column": "title",
+          "operator": "==",
+          "value": "test"
+        }
+      ]).then(function(result){
         global_this.message = result;
       }).catch(function(e) {
         global_this.message = e;
