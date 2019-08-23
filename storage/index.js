@@ -23,7 +23,15 @@ export class sCStorage {
         reject(new Error("Please define a container."));
       }
 
-      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + container_name, {
+      if(!sorting) {
+        if(sorting !== 'asc' && sorting !== 'desc'){
+          console.warning("schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data.");
+        }
+      } else {
+        sorting = "";
+      }
+
+      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + container_name + "&order=" + sorting, {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret
@@ -39,6 +47,13 @@ export class sCStorage {
     });
   }
 
+  /**
+  This method lets you retrieve data with filters.
+  @param {String} container_name The container name, created via the schmuckliCloud console
+  @param {Array} filter A filter is an array, defining which entries should be displayed.
+  @param {String} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
+  @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it.
+  */
   get(container_name, filter, sorting){
     var global_this = this;
     return new Promise(function(resolve, reject) {
@@ -56,7 +71,15 @@ export class sCStorage {
       }
       var encodedFilter = encodeURI(JSON.stringify(filter));
 
-      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + encodeURI(container_name) + "&filter=" + encodedFilter, {
+      if(!sorting) {
+        if(sorting !== 'asc' && sorting !== 'desc'){
+          console.warning("schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data.");
+        }
+      } else {
+        sorting = "";
+      }
+
+      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + encodeURI(container_name) + "&filter=" + encodedFilter + "&order=" + sorting, {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret

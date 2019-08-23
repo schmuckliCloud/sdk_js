@@ -1,0 +1,4 @@
+deploy:
+  provider: npm
+  email: "julian@schmuckli.net"
+  api_key: "ab787613-687e-4425-b0a4-ceb82a266b1b"
