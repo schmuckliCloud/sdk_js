@@ -15,6 +15,12 @@ export class sCStorage {
     this.bucket_id = bucket_id;
   }
 
+  /**
+  This method lets you retrieve all rows from a container.
+  @param {String} container_name The container name, created via the schmuckliCloud console
+  @param {String} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
+  @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get the result.
+  */
   getAll(container_name, sorting){
     var global_this = this;
     return new Promise(function(resolve, reject) {
@@ -92,6 +98,24 @@ export class sCStorage {
           reject(new Error("There was a problem with the API endpoint."));
         }
       });
+    });
+  }
+
+  /**
+  This methdo can add new rows to you container in the previous set dataset.
+  @param {String} container_name The container name, created via the schmuckliCloud console
+  @param {String} data A dataobject with a key-value pair. The key represents the columns defined in the schmuckliCloud console.
+  @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
+  */
+  insert(container_name, data) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      //Check the properties before sending to the API
+      if (container_name === undefined || container_name === "") {
+        reject(new Error("Please define a container."));
+      }
+
+      //TODO Handle the insert
     });
   }
 }
