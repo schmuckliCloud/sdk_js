@@ -26,13 +26,17 @@ export default {
 
       ref.setBucket(11);
 
-      /*ref.getAll("posts").then(function(result){
+      ref.insert("posts", {
+        title: "Test"
+      });
+
+      ref.getAll("posts").then(function(result){
         global_this.message = result;
       }).catch(function(e) {
         global_this.message = e;
-      });*/
+      });
 
-      ref.get("posts", [
+      /*ref.get("posts", [
         {
           "column": "title",
           "operator": "==",
@@ -42,7 +46,7 @@ export default {
         global_this.message = result;
       }).catch(function(e) {
         global_this.message = e;
-      });
+      });*/
     }
   }
 }

@@ -31,7 +31,7 @@ export class sCStorage {
 
       if(!sorting) {
         if(sorting !== 'asc' && sorting !== 'desc'){
-          console.warning("schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data.");
+          console.warn("schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data.");
         }
       } else {
         sorting = "";
@@ -79,7 +79,7 @@ export class sCStorage {
 
       if(!sorting) {
         if(sorting !== 'asc' && sorting !== 'desc'){
-          console.warning("schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data.");
+          console.warn("schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data.");
         }
       } else {
         sorting = "";
@@ -95,7 +95,7 @@ export class sCStorage {
           var result = new sCResult(result.data.status, result.data.message, result.data.body);
           resolve(result);
         } else {
-          reject(new Error("There was a problem with the API endpoint."));
+          reject(new Error("There was a problem with the API endpoint. Following error message was sent: " + result.data.message));
         }
       });
     });
@@ -115,7 +115,34 @@ export class sCStorage {
         reject(new Error("Please define a container."));
       }
 
-      //TODO Handle the insert
+      let final_data = "{}";
+      if (data === undefined || data === {}) {
+        reject(new Error("Please provide a data object."));
+      } else {
+        final_data = JSON.stringify(data);
+      }
+
+      axios({
+        url: Config.API_ENDPOINT,
+        method: "POST",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret
+        },
+        data: {
+          bucket: global_this.bucket_id,
+          dataset: encodeURI(global_this.dataset),
+          container: encodeURI(container_name),
+          data: final_data
+        }
+      }).then(function(response){
+        var data = response.data;
+        if(response.status === 200) {
+          resolve(new sCResult(data.status, data.message, data.body))
+        } else {
+          reject(new Error("There was an error while inserting data. Following error message: " + data.message));
+        }
+      });
     });
   }
 }
