@@ -147,6 +147,56 @@ export class sCStorage {
   }
 
   /**
+  This method updates a specific row in a container
+  @param {String} container_name Define a container name, which should be updated.
+  @param {Number} row_id Define a row id which should be updated
+  @param {Object} data Define the data object in a key-value pair
+  @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
+  */
+  update(container_name, row_id, data) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      //Check the properties before sending to the API
+      if (container_name === undefined || container_name === "") {
+        reject(new Error("Please define a container."));
+      }
+
+      if(row_id === undefined || isNaN(row_id)){ //Check if the value is a number
+        reject(new Error("Please provide a row id and make sure it is a number."));
+      }
+
+      if(data === undefined || data === [] || data === {} || data === ""){
+        reject(new Error("Please provide a data array, with data which should be updated."));
+      } else {
+        data = JSON.stringify(data);
+      }
+
+      axios({
+        url: Config.API_ENDPOINT,
+        method: "PUT",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret
+        },
+        data: {
+          bucket: global_this.bucket_id,
+          dataset: encodeURI(global_this.dataset),
+          container: encodeURI(container_name),
+          row: row_id,
+          data: data
+        }
+      }).then(function(response){
+        var data = response.data;
+        if(response.status === 200) {
+          resolve(new sCResult(data.status, data.message, data.body))
+        } else {
+          reject(new Error("There was an error while updating the data. Following error message: " + data.message));
+        }
+      });
+    });
+  }
+
+  /**
   This method deletes a specific row in a container or can just delete a column in a specific row.
   @param {String} container_name Define the container name, where the deletion process should take place
   @param {Number} row_id Define a row id, which can be retrieved by the 'get' or 'getAll' method.
@@ -184,7 +234,7 @@ export class sCStorage {
         if(response.status === 200) {
           resolve(new sCResult(data.status, data.message, data.body))
         } else {
-          reject(new Error("There was an error while inserting data. Following error message: " + data.message));
+          reject(new Error("There was an error while deleting the data. Following error message: " + data.message));
         }
       });
     });

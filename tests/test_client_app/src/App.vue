@@ -30,9 +30,14 @@ export default {
         title: "Test"
       });*/
 
-      ref.delete("posts", 11, "title").then(function(data){
-        console.log(data);
+      ref.update("posts", 9, {
+        title: "Hallo",
+        author: "Test"
       });
+
+      /*ref.delete("posts", 11, "title").then(function(data){
+        console.log(data);
+      });*/
 
       ref.getAll("posts").then(function(result){
         global_this.message = result;
