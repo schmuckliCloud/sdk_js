@@ -25,16 +25,22 @@ export default {
     }
   },
   mounted(){
-    var global_this = this;
-    ref.getAll("todos").then(function(response){
-      global_this.todo_list = response.data;
-    });
+    this.loadData();
   },
   methods: {
     addTodo(e){
       e.preventDefault();
+      var global_this = this;
       ref.insert("todos", {
         name: this.name
+      }).then(function(){
+        global_this.loadData();
+      });
+    },
+    loadData(){
+      var global_this = this;
+      ref.getAll("todos").then(function(response){
+        global_this.todo_list = response.data;
       });
     }
   }
