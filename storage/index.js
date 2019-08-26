@@ -2,15 +2,29 @@ import * as Config from "./config";
 import axios from "axios";
 
 export class sCStorage {
+
+  /**
+  Opens a new schmuckliCloud storage instance. It can be used to manage then all the data in a defined project.
+  @param {String} app_id The APP ID, which was created for a client app in the schmuckliCloud console.
+  @param {String} app_secret The APP Secret, which was created for a client app in the schmuckliCloud console.
+  */
   constructor(app_id, app_secret) {
     this.appid = app_id;
     this.appsecret = app_secret;
   }
 
+  /**
+  Set the dataset, which should be used for the further data operations.
+  @param {String} dataset_name The name of the dataset (Do not use the id)
+  */
   setDataset(dataset_name){
     this.dataset = dataset_name;
   }
 
+  /**
+  Set the bucket id which later should be used to manage data.
+  @param {Number} bucket_id The number of the bucket id
+  */
   setBucket(bucket_id){
     this.bucket_id = bucket_id;
   }
