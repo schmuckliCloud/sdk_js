@@ -26,8 +26,12 @@ export default {
 
       ref.setBucket(11);
 
-      ref.insert("posts", {
+      /*ref.insert("posts", {
         title: "Test"
+      });*/
+
+      ref.delete("posts", 11, "title").then(function(data){
+        console.log(data);
       });
 
       ref.getAll("posts").then(function(result){

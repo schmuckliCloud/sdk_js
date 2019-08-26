@@ -102,7 +102,7 @@ export class sCStorage {
   }
 
   /**
-  This methdo can add new rows to you container in the previous set dataset.
+  This methdod can add new rows to you container in the previous set dataset.
   @param {String} container_name The container name, created via the schmuckliCloud console
   @param {String} data A dataobject with a key-value pair. The key represents the columns defined in the schmuckliCloud console.
   @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
@@ -134,6 +134,50 @@ export class sCStorage {
           dataset: encodeURI(global_this.dataset),
           container: encodeURI(container_name),
           data: final_data
+        }
+      }).then(function(response){
+        var data = response.data;
+        if(response.status === 200) {
+          resolve(new sCResult(data.status, data.message, data.body))
+        } else {
+          reject(new Error("There was an error while inserting data. Following error message: " + data.message));
+        }
+      });
+    });
+  }
+
+  /**
+  This method deletes a specific row in a container or can just delete a column in a specific row.
+  @param {String} container_name Define the container name, where the deletion process should take place
+  @param {Number} row_id Define a row id, which can be retrieved by the 'get' or 'getAll' method.
+  @param {String} column Define a column name, when just this data in this specific column should be deleted.
+  @return {Promise} Returns a promise. Once it has finished the deletion process you can fetch the result in the first parameter.
+  */
+  delete(container_name, row_id, column) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      //Check the properties before sending to the API
+      if (container_name === undefined || container_name === "") {
+        reject(new Error("Please define a container."));
+      }
+
+      if(row_id === undefined || isNaN(row_id)){ //Check if the value is a number
+        reject(new Error("Please provide a row id and make sure it is a number."));
+      }
+
+      axios({
+        url: Config.API_ENDPOINT,
+        method: "DELETE",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret
+        },
+        data: {
+          bucket: global_this.bucket_id,
+          dataset: encodeURI(global_this.dataset),
+          container: encodeURI(container_name),
+          row: row_id,
+          col: column
         }
       }).then(function(response){
         var data = response.data;
