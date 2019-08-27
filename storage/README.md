@@ -19,9 +19,9 @@ Then initialize a new `sCStorage` object and provide also the APP ID and APP Sec
 the schmuckliCloud console and open a project. Then in the bottom, you will find a 
 
 ```javascript
-import sCStorage from 'schmucklicloud_storage';
+import { sCStorage } from 'schmucklicloud_storage';
 
-var reference = sCStorage('YOUR_APPID', 'YOUR_APPSECRET');
+var reference = new sCStorage('YOUR_APPID', 'YOUR_APPSECRET');
 ```
 Now after you have your reference object, you can start writing and reading data from your storage buckets. 
 Before you can do that, you first have to set some important values, which will be appended to every request you are doing later:
