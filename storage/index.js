@@ -33,9 +33,11 @@ export class sCStorage {
   This method lets you retrieve all rows from a container.
   @param {String} container_name The container name, created via the schmuckliCloud console
   @param {String} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
+  @param {Number} start Define a start index.
+  @param {Number} limit Define a maximum of showing results.
   @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get the result.
   */
-  getAll(container_name, sorting){
+  getAll(container_name, sorting, start, limit){
     var global_this = this;
     return new Promise(function(resolve, reject) {
       //Check the properties before sending to the API
@@ -51,7 +53,14 @@ export class sCStorage {
         sorting = "";
       }
 
-      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + container_name + "&order=" + sorting, {
+      if(start === undefined){
+        start = "";
+      }
+      if(limit === undefined){
+        limit = "";
+      }
+
+      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + container_name + "&order=" + sorting + "&start=" + start + "&limit=" + limit, {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret
@@ -72,9 +81,11 @@ export class sCStorage {
   @param {String} container_name The container name, created via the schmuckliCloud console
   @param {Array} filter A filter is an array, defining which entries should be displayed.
   @param {String} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
+  @param {Number} start Define a start index.
+  @param {Number} limit Define a maximum of showing results.
   @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it.
   */
-  get(container_name, filter, sorting){
+  get(container_name, filter, sorting, start, limit){
     var global_this = this;
     return new Promise(function(resolve, reject) {
       //Check the properties before sending to the API
@@ -99,7 +110,14 @@ export class sCStorage {
         sorting = "";
       }
 
-      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + encodeURI(container_name) + "&filter=" + encodedFilter + "&order=" + sorting, {
+      if(start === undefined){
+        start = "";
+      }
+      if(limit === undefined){
+        limit = "";
+      }
+
+      axios.get(Config.API_ENDPOINT + "?bucket=" + global_this.bucket_id + "&dataset=" + encodeURI(global_this.dataset) + "&container=" + encodeURI(container_name) + "&filter=" + encodedFilter + "&order=" + sorting + "&start=" + start + "&limit=" + limit, {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret

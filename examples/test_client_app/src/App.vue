@@ -21,10 +21,10 @@ export default {
     test_one(){
       var global_this = this;
 
-      var ref = new sCStorage("4d4ff55414917628252ebcd373ade72e38005294", "17364a09ed982edb4089d5362e496b13e85b8060d474655ec6b58f57ea18aa60");
-      ref.setDataset("abc");
+      var ref = new sCStorage("d8feb2cff54efd2bc9d6273541ec35aafb89f28f", "c685efaa5560134a0dd8dea5ba39f1b13f28c1a2d890b85942748f6386cbdd7a");
+      ref.setDataset("test3");
 
-      ref.setBucket(11);
+      ref.setBucket(12);
 
       /*ref.insert("posts", {
         title: "Test"
@@ -39,7 +39,7 @@ export default {
         console.log(data);
       });*/
 
-      ref.getAll("posts").then(function(result){
+      ref.getAll("todos", "asc", 11, 1).then(function(result){
         global_this.message = result;
       }).catch(function(e) {
         global_this.message = e;
