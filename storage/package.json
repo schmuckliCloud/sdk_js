@@ -1,6 +1,6 @@
 {
   "name": "schmucklicloud_storage",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "This is the official JavaScript SDK for schmuckliCloud Storage service",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/julianschmuckli/schmucklicloud_sdk_js.git"
   },
-  "keywords": [
-    "schmucklicloud",
-    "service",
-    "storage",
-    "sdk"
-  ],
+  "keywords": ["schmucklicloud", "service", "storage", "sdk"],
   "author": "Julian Schmuckli",
   "license": "MIT",
   "bugs": {
