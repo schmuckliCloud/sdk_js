@@ -1,12 +1,26 @@
 language: node_js
 node_js:
   - 7
-install: 
-  - cd storage # Enter the correct subdirectory
-  - "npm install" # Install the dependencies like webpack
-script:
-  - "webpack" #Build the minified version with webpack according to the webpack.config.js
-deploy:
-  provider: npm
-  email: "julian@schmuckli.net"
-  api_key: "ab787613-687e-4425-b0a4-ceb82a266b1b"
+matrix:
+  fast_finish: true
+  include:
+    - env: StorageSDK
+    install: 
+      - cd storage # Enter the correct subdirectory
+      - "npm install" # Install the dependencies like webpack
+    script:
+      - "webpack" #Build the minified version with webpack according to the webpack.config.js
+    deploy:
+      provider: npm
+      email: "julian@schmuckli.net"
+      api_key: "ab787613-687e-4425-b0a4-ceb82a266b1b"
+    - env: AuthSDK
+    install: 
+      - cd auth # Enter the correct subdirectory
+      - "npm install" # Install the dependencies like webpack
+    script:
+      - "webpack" #Build the minified version with webpack according to the webpack.config.js
+    deploy:
+      provider: npm
+      email: "julian@schmuckli.net"
+      api_key: "ab787613-687e-4425-b0a4-ceb82a266b1b"
