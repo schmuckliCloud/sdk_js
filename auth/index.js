@@ -45,7 +45,7 @@ class sCAuth {
         } else {
           reject(
             new Error(
-              "There was an error while inserting data. Following error message: " +
+              "There was an error while registering the user with email and password. Following error message: " +
                 data.message
             )
           );
@@ -81,7 +81,7 @@ class sCAuth {
         } else {
           reject(
             new Error(
-              "There was an error while inserting data. Following error message: " +
+              "There was an error while authorizing the user with email and password. Following error message: " +
                 data.message
             )
           );
@@ -116,7 +116,7 @@ class sCAuth {
         } else {
           reject(
             new Error(
-              "There was an error while inserting data. Following error message: " +
+              "There was an error while requesting for a new password. Following error message: " +
                 data.message
             )
           );
@@ -152,7 +152,42 @@ class sCAuth {
         } else {
           reject(
             new Error(
-              "There was an error while inserting data. Following error message: " +
+              "There was an error while updating the password. Following error message: " +
+                data.message
+            )
+          );
+        }
+      });
+    });
+  }
+
+  /**
+   * Call this function, if the user has clicked on the activation link in the welcome email.
+   * @param {string} token The token, which was given through the parameter in the email link.
+   * @returns {sCResult} If it was successful, then it will return a confirmation.
+   */
+  async activateUser(token) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      axios({
+        url: Config.API_ENDPOINT,
+        method: "PUT",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret
+        },
+        data: {
+          function: "activate_account",
+          token: token
+        }
+      }).then(function(response) {
+        var data = response.data;
+        if (response.status === 200) {
+          resolve(new sCResult(data.status, data.message, data.body));
+        } else {
+          reject(
+            new Error(
+              "There was an error while activating the user account. Following error message: " +
                 data.message
             )
           );
