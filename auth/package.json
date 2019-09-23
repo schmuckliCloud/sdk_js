@@ -1,6 +1,6 @@
 {
   "name": "schmucklicloud_auth",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "This is the official JavaScript SDK for schmuckliCloud Authentication service",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/julianschmuckli/schmucklicloud_sdk_js.git"
   },
-  "keywords": ["schmucklicloud", "service", "authentication", "sdk"],
+  "keywords": [
+    "schmucklicloud",
+    "service",
+    "authentication",
+    "sdk"
+  ],
   "author": "Julian Schmuckli",
   "license": "MIT",
   "bugs": {
