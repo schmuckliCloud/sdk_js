@@ -4,6 +4,20 @@
     <input type="text" placeholder="Email" v-model="r_email"><br>
     <input type="password" placeholder="Password" v-model="r_password"><br>
     <button @click="register">Register</button>
+    <hr>
+    <h2>Login</h2>
+    <input type="text" placeholder="Email" v-model="l_email"><br>
+    <input type="password" placeholder="Password" v-model="l_password"><br>
+    <button @click="login">Login</button>
+    <hr>
+    <h2>Reset password</h2>
+    <input type="text" placeholder="Email" v-model="reset_email"><br>
+    <button @click="resetPassword">Reset password</button>
+    <hr>
+    <h2>Update password with token</h2>
+    <input type="text" placeholder="Token" v-model="token"><br>
+    <input type="password" placeholder="New password" v-model="ru_password"><br>
+    <button @click="updateResetPassword">Update password</button>
   </div>
 </template>
 
@@ -17,12 +31,33 @@ export default {
   data(){
     return {
       r_email: "",
-      r_password: ""
+      r_password: "",
+      l_email: "",
+      l_password: "",
+      reset_email: "",
+
+      token: "",
+      ru_password: ""
     }
   },
   methods: {
     register(){
       auth.registerEmailPassword(this.r_email, this.r_password).then(function(response){
+        console.log(response);
+      });
+    },
+    login(){
+      auth.authorizeEmailPassword(this.l_email, this.l_password).then(function(response){
+        console.log(response);
+      });
+    },
+    resetPassword(){
+      auth.requestResetPassword(this.reset_email).then(function(response){
+        console.log(response);
+      });
+    },
+    updateResetPassword(){
+      auth.updateResetPassword(this.token, this.ru_password).then(function(response){
         console.log(response);
       });
     }
