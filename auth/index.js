@@ -141,7 +141,7 @@ class sCAuth {
           appsecret: global_this.appsecret
         },
         data: {
-          function: "request_reset_password",
+          function: "update_reset_password",
           token: reset_token,
           password: password
         }
