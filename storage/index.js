@@ -21,6 +21,18 @@ export class sCStorage {
   }
 
   /**
+   * Binds the authentication token to the storage object, to use the protected dataset, reserved for the user.
+   * @param {string} auth_token The authentication session token from the auth library.
+   * @param {boolean} not_reset By default, it will reset the dataset. If you want to use the authentication dataset, you must provide a empty dataset string.
+   */
+  setAuthToken(auth_token, not_reset){
+    this.auth_token = auth_token;
+    if(not_reset === false || not_reset === undefined){
+      this.dataset = undefined;
+    }
+  }
+
+  /**
   Set the bucket id which later should be used to manage data.
   @param {Number} bucket_id The number of the bucket id
   */
@@ -79,7 +91,8 @@ export class sCStorage {
           {
             headers: {
               appid: global_this.appid,
-              appsecret: global_this.appsecret
+              appsecret: global_this.appsecret,
+              auth_token: global_this.auth_token
             }
           }
         )
@@ -165,7 +178,8 @@ export class sCStorage {
           {
             headers: {
               appid: global_this.appid,
-              appsecret: global_this.appsecret
+              appsecret: global_this.appsecret,
+              auth_token: global_this.auth_token
             }
           }
         )
@@ -215,7 +229,8 @@ export class sCStorage {
         method: "POST",
         headers: {
           appid: global_this.appid,
-          appsecret: global_this.appsecret
+          appsecret: global_this.appsecret,
+          auth_token: global_this.auth_token
         },
         data: {
           bucket: global_this.bucket_id,
@@ -276,7 +291,8 @@ export class sCStorage {
         method: "PUT",
         headers: {
           appid: global_this.appid,
-          appsecret: global_this.appsecret
+          appsecret: global_this.appsecret,
+          auth_token: global_this.auth_token
         },
         data: {
           bucket: global_this.bucket_id,
@@ -328,7 +344,8 @@ export class sCStorage {
         method: "DELETE",
         headers: {
           appid: global_this.appid,
-          appsecret: global_this.appsecret
+          appsecret: global_this.appsecret,
+          auth_token: global_this.auth_token
         },
         data: {
           bucket: global_this.bucket_id,
@@ -366,7 +383,8 @@ export class sCStorage {
         method: "GET",
         headers: {
           appid: global_this.appid,
-          appsecret: global_this.appsecret
+          appsecret: global_this.appsecret,
+          auth_token: global_this.auth_token
         },
         params: {
           bucket: global_this.bucket_id,
