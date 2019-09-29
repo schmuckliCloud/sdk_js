@@ -4,4 +4,4 @@ The repository is splitted into several parts. Depending on what service you nee
 
 [Storage](https://github.com/julianschmuckli/schmucklicloud_sdk_js/tree/master/storage): Create, edit, get and delete simple data.
 
-More services are coming soon...
+[Auth](https://github.com/julianschmuckli/schmucklicloud_sdk_js/tree/master/auth): Provide a full authentication solution for your users. In combination with storage you also can save user specific data.
