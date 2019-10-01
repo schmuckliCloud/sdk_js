@@ -92,7 +92,7 @@ export class sCStorage {
             headers: {
               appid: global_this.appid,
               appsecret: global_this.appsecret,
-              auth_token: global_this.auth_token
+              authtoken: global_this.auth_token
             }
           }
         )
@@ -179,7 +179,7 @@ export class sCStorage {
             headers: {
               appid: global_this.appid,
               appsecret: global_this.appsecret,
-              auth_token: global_this.auth_token
+              authtoken: global_this.auth_token
             }
           }
         )
@@ -230,7 +230,7 @@ export class sCStorage {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret,
-          auth_token: global_this.auth_token
+          authtoken: global_this.auth_token
         },
         data: {
           bucket: global_this.bucket_id,
@@ -292,7 +292,7 @@ export class sCStorage {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret,
-          auth_token: global_this.auth_token
+          authtoken: global_this.auth_token
         },
         data: {
           bucket: global_this.bucket_id,
@@ -345,7 +345,7 @@ export class sCStorage {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret,
-          auth_token: global_this.auth_token
+          authtoken: global_this.auth_token
         },
         data: {
           bucket: global_this.bucket_id,
@@ -384,7 +384,7 @@ export class sCStorage {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret,
-          auth_token: global_this.auth_token
+          authtoken: global_this.auth_token
         },
         params: {
           bucket: global_this.bucket_id,
