@@ -28,7 +28,7 @@ export class sCStorage {
   setAuthToken(auth_token, not_reset){
     this.auth_token = auth_token;
     if(not_reset === false || not_reset === undefined){
-      this.dataset = undefined;
+      this.dataset = "";
     }
   }
 
