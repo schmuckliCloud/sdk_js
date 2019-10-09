@@ -1,1 +1,1 @@
-export let API_ENDPOINT = "https://cloud.schmuckli.net/client_api/v1/auth/";
+export let API_ENDPOINT = "https://api.schmuckli.cloud/client_api/v1/auth/";
