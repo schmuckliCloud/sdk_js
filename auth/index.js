@@ -195,6 +195,41 @@ class sCAuth {
       });
     });
   }
+
+  /**
+   * Checks if the token provided is still valid and matches with the server.
+   * @param {string} token The session token, which you got, when the user has been authorized.
+   */
+  async checkSession(token) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      axios({
+        url: Config.API_ENDPOINT,
+        method: "GET",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret,
+          authtoken: token
+        }
+      }).then(function(response) {
+        var data = response.data;
+        switch (response.status) {
+          case 200:
+          case 404:
+            resolve(new sCResult(data.status, data.message, data.body));
+            break;
+          default:
+            reject(
+              new Error(
+                "There was an error while checking the session. Following error message: " +
+                  data.message
+              )
+            );
+            break;
+        }
+      });
+    });
+  }
 }
 
 /*
