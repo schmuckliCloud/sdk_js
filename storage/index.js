@@ -204,6 +204,59 @@ export class sCStorage {
   }
 
   /**
+   * Retrieve a single rowset by it's id.
+   * @param {String} container_name The container name, where the ID is contained.
+   * @param {Number} row_id The row id, which can be trieved by get or getAll.
+   * @return {Promise} The function returns a promise.
+   */
+  getById(container_name, row_id) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      //Check the properties before sending to the API
+      if (container_name === undefined || container_name === "") {
+        reject(new Error("Please define a container."));
+      }
+
+      axios
+        .get(
+          Config.API_ENDPOINT +
+            "?bucket=" +
+            global_this.bucket_id +
+            "&dataset=" +
+            encodeURI(global_this.dataset) +
+            "&container=" +
+            encodeURI(container_name) +
+            "&row=" +
+            row_id,
+          {
+            headers: {
+              appid: global_this.appid,
+              appsecret: global_this.appsecret,
+              authtoken: global_this.auth_token
+            }
+          }
+        )
+        .then(function(result) {
+          if (result.status === 200) {
+            var result = new sCResult(
+              result.data.status,
+              result.data.message,
+              result.data.body[0]
+            );
+            resolve(result);
+          } else {
+            reject(
+              new Error(
+                "There was a problem with the API endpoint. Following error message was sent: " +
+                  result.data.message
+              )
+            );
+          }
+        });
+    });
+  }
+
+  /**
   This methdod can add new rows to you container in the previous set dataset.
   @param {String} container_name The container name, created via the schmuckliCloud console
   @param {String} data A dataobject with a key-value pair. The key represents the columns defined in the schmuckliCloud console.
