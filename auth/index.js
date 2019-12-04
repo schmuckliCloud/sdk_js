@@ -55,10 +55,10 @@ class sCAuth {
   }
 
   /**
-   * Authorizes the user with email and password. In the body you will find the session token,
+   * Authorizes the user with email and password. In the body you will find the session token.
    * @param {string} email The email of the user
    * @param {string} password The password of the user
-   * @returns {sCResult} If it was successful, it will provide the session token in the body. Save it somewhere save on the client.
+   * @returns {sCResult} If it was successful, it will provide the session token in the body. Save it somewhere safe on the client.
    */
   async authorizeEmailPassword(email, password) {
     var global_this = this;

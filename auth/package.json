@@ -1,6 +1,6 @@
 {
   "name": "schmucklicloud_auth",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This is the official JavaScript SDK for schmuckliCloud Authentication service",
   "main": "index.js",
   "scripts": {
