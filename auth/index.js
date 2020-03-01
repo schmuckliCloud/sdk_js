@@ -246,7 +246,7 @@ class sCAuth {
           appsecret: global_this.appsecret,
           authtoken: token
         },
-        body: {
+        params: {
           function: "user_profile"
         }
       }).then(function(response) {
