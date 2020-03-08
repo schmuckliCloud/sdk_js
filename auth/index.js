@@ -91,6 +91,43 @@ class sCAuth {
   }
 
   /**
+   * Updates the password of the given email for the user in the project.
+   * @param {string} email The email of the user, where the password should be changed.
+   * @param {string} old_password The current password of the user.
+   * @param {string} new_password The new password of the user.
+   */
+  async updatePassword(email, old_password, new_password) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      axios({
+        url: Config.API_ENDPOINT + "emailpassword.php",
+        method: "PUT",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret
+        },
+        data: {
+          email: email,
+          password: old_password,
+          new_password: new_password
+        }
+      }).then(function(response) {
+        var data = response.data;
+        if (response.status === 200) {
+          resolve(new sCResult(data.status, data.message, data.body));
+        } else {
+          reject(
+            new Error(
+              "There was an error while authorizing the user with email and password. Following error message: " +
+                data.message
+            )
+          );
+        }
+      });
+    });
+  }
+
+  /**
    * If the user has forgottten his password, just provide the email and it will send an email with a password change link.
    * @param {string} email The email from the account (ex. EmailPassword or any other provider)
    * @returns {sCResult}
