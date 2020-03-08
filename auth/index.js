@@ -108,6 +108,7 @@ class sCAuth {
         },
         data: {
           email: email,
+          function: "update_password",
           password: old_password,
           new_password: new_password
         }
