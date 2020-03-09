@@ -306,6 +306,44 @@ class sCAuth {
       });
     });
   }
+
+  /**
+   * Get all active session for the user.
+   * @param {string} token The token of the current session.
+   */
+  async getActiveSessions(token) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      axios({
+        url: Config.API_ENDPOINT,
+        method: "GET",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret,
+          authtoken: token
+        },
+        params: {
+          function: "sessions"
+        }
+      }).then(function(response) {
+        var data = response.data;
+        switch (response.status) {
+          case 200:
+          case 404:
+            resolve(new sCResult(data.status, data.message, data.body));
+            break;
+          default:
+            reject(
+              new Error(
+                "There was an error while getting the user profile with this session. Following error message: " +
+                  data.message
+              )
+            );
+            break;
+        }
+      });
+    });
+  }
 }
 
 /*
