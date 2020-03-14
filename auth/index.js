@@ -360,7 +360,7 @@ class sCAuth {
           appsecret: global_this.appsecret,
           authtoken: token
         },
-        params: {
+        data: {
           function: "logout"
         }
       }).then(function(response) {
@@ -399,7 +399,7 @@ class sCAuth {
           appsecret: global_this.appsecret,
           authtoken: current_token
         },
-        params: {
+        data: {
           function: "remove_session",
           session_id: id
         }
