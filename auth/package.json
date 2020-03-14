@@ -1,6 +1,6 @@
 {
   "name": "schmucklicloud_auth",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "This is the official SDK for schmuckliCloud Authentication service for JavaScript.",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/julianschmuckli/schmucklicloud_sdk_js/issues"
   },
-  "homepage": "https://github.com/julianschmuckli/schmucklicloud_sdk_js#readme",
+  "homepage": "https://schmuckli.cloud",
   "dependencies": {
     "axios": "^0.19.0"
   },

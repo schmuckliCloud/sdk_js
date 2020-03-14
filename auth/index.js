@@ -345,6 +345,10 @@ class sCAuth {
     });
   }
 
+  /**
+   * Removes the current active session, which was given.
+   * @param {string} token The session token of the current logged in session.
+   */
   async logout(token) {
     var global_this = this;
     return new Promise(function(resolve, reject) {
@@ -379,7 +383,12 @@ class sCAuth {
     });
   }
 
-  async removeSession(id) {
+  /**
+   * Removes a session by the session id.
+   * @param {string} current_token The token, where the user is currently signed in.
+   * @param {int} id The session id, which should be removed.
+   */
+  async removeSession(current_token, id) {
     var global_this = this;
     return new Promise(function(resolve, reject) {
       axios({
@@ -388,7 +397,7 @@ class sCAuth {
         headers: {
           appid: global_this.appid,
           appsecret: global_this.appsecret,
-          authtoken: token
+          authtoken: current_token
         },
         params: {
           function: "remove_session",
