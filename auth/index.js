@@ -344,6 +344,75 @@ class sCAuth {
       });
     });
   }
+
+  async logout(token) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      axios({
+        url: Config.API_ENDPOINT,
+        method: "DELETE",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret,
+          authtoken: token
+        },
+        params: {
+          function: "logout"
+        }
+      }).then(function(response) {
+        var data = response.data;
+        switch (response.status) {
+          case 200:
+          case 404:
+            resolve(new sCResult(data.status, data.message, data.body));
+            break;
+          default:
+            reject(
+              new Error(
+                "There was an error while logout the session with this session. Following error message: " +
+                  data.message
+              )
+            );
+            break;
+        }
+      });
+    });
+  }
+
+  async removeSession(id) {
+    var global_this = this;
+    return new Promise(function(resolve, reject) {
+      axios({
+        url: Config.API_ENDPOINT,
+        method: "DELETE",
+        headers: {
+          appid: global_this.appid,
+          appsecret: global_this.appsecret,
+          authtoken: token
+        },
+        params: {
+          function: "remove_session",
+          session_id: id
+        }
+      }).then(function(response) {
+        var data = response.data;
+        switch (response.status) {
+          case 200:
+          case 404:
+            resolve(new sCResult(data.status, data.message, data.body));
+            break;
+          default:
+            reject(
+              new Error(
+                "There was an error while logout the session with this session. Following error message: " +
+                  data.message
+              )
+            );
+            break;
+        }
+      });
+    });
+  }
 }
 
 /*
