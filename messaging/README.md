@@ -1,0 +1,2 @@
+# schmuckliCloud Messaging SDK for JavaScript
+This is the official JavaScript SDK for the schmuckliCloud Messaging service. The service allows you to simply use the Firebase Cloud Messaging service in your app by sending the requests to the APIs here.
