@@ -21,4 +21,46 @@ class sCMessaging {
     async assignTokenToUser(device_token, user_id) {
         
     }
+
+    /**
+     * Sends a request to FCM instantly.
+     * @param {int} user_id The user id of the user which should be notified.
+     * @param {object} body The body of the request like here: https://firebase.google.com/docs/cloud-messaging/http-server-ref
+     * @return {Promise}
+     */
+    async sendRequestNow(user_id, body) {
+        
+    }
+
+    /**
+     * Sends a request to FCM on the specified timestamp.
+     * @param {int} user_id The user id of the user which should be notified.
+     * @param {object} body The body of the request like here: https://firebase.google.com/docs/cloud-messaging/http-server-ref
+     * @param {int} timestamp The timestamp, when the request should be processed.
+     * @return {Promise}
+     */
+    async sendRequestLater(user_id, body, timestamp) {
+        
+    }
 }
+
+/*
+Result object for filtering the
+*/
+class sCResult {
+    constructor(status_code, message, body) {
+      this.status_code = status_code;
+      this.message = message;
+      this.data = body;
+    }
+  
+    /**
+     * Returns true, if the request was successfully.
+     * @returns {boolean}
+     */
+    get isOK() {
+      return this.status_code >= 200 && this.status_code <= 299 ? true : false;
+    }
+  }
+  
+  export { sCMessaging, sCResult };  
