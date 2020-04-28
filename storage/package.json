@@ -1,6 +1,6 @@
 {
   "name": "schmucklicloud_storage",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "This is the official JavaScript SDK for schmuckliCloud Storage service",
   "main": "index.js",
   "scripts": {

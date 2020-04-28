@@ -141,7 +141,7 @@ export class sCStorage {
       }
       var encodedFilter = encodeURI(JSON.stringify(filter));
 
-      if (!sorting) {
+      if (sorting !== undefined) {
         if (sorting !== "asc" && sorting !== "desc") {
           console.warn(
             "schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data."
