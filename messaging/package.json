@@ -1,6 +1,6 @@
 {
   "name": "schmucklicloud_messaging",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "The schmuckliCloud messaging service provides you a simple integration of FCM in your project.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/julianschmuckli/schmucklicloud_sdk_js.git"
+    "url": "git+https://github.com/schmuckliCloud/sdk_js.git"
   },
   "keywords": [
     "schmucklicloud",

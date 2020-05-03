@@ -62,6 +62,10 @@ class sCMessaging {
       console.warn("Please define a auth_token with the function setAuthToken, before you can use this function.");
       return false;
     }
+
+    if (body instanceof Object || body instanceof Array) {
+      body = JSON.stringify(body);
+    }
     return new Promise(async function (resolve, reject) {
       var response = await axios({
         url: Config.API_ENDPOINT,
@@ -95,6 +99,9 @@ class sCMessaging {
         console.warn("Please define a auth_token with the function setAuthToken, before you can use this function.");
         return false;
       }
+      if (body instanceof Object || body instanceof Array) {
+        body = JSON.stringify(body);
+      }
       return new Promise(async function (resolve, reject) {
         var response = await axios({
           url: Config.API_ENDPOINT,
@@ -105,7 +112,7 @@ class sCMessaging {
             authtoken: this.auth_token
           },
           data: {
-            function: "call_service_now",
+            function: "call_service_later",
             body: body,
             timestamp: timestamp
           }
