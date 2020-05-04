@@ -127,9 +127,126 @@ class sCMessaging {
 
     /**
      * Fetchs all the assigned device tokens of the authenticated user.
+     * @return {Promise}
      */
     async getAllAssignedTokens() {
+      if (this.auth_token === undefined) {
+        console.warn("Please define a auth_token with the function setAuthToken, before you can use this function.");
+        return false;
+      }
+      return new Promise(async function (resolve, reject) {
+        var response = await axios({
+          url: Config.API_ENDPOINT,
+          method: "GET",
+          headers: {
+            appid: this.appid,
+            appsecret: this.appsecret,
+            authtoken: this.auth_token
+          },
+          params: {
+            function: "assigned_tokens"
+          }
+        });
+        if (response.status_code === 200) {
+          resolve(response.body)
+        } else {
+          reject(response.body);
+        }
+      }.bind(this));
+    }
 
+    /**
+     * Fetchs all the open requests, which will be send to the user in the future.
+     * @returns {Promise}
+     */
+    async getOpenRequests() {
+      if (this.auth_token === undefined) {
+        console.warn("Please define a auth_token with the function setAuthToken, before you can use this function.");
+        return false;
+      }
+      return new Promise(async function (resolve, reject) {
+        var response = await axios({
+          url: Config.API_ENDPOINT,
+          method: "GET",
+          headers: {
+            appid: this.appid,
+            appsecret: this.appsecret,
+            authtoken: this.auth_token
+          },
+          params: {
+            function: "open_requests"
+          }
+        });
+        if (response.status_code === 200) {
+          resolve(response.body)
+        } else {
+          reject(response.body);
+        }
+      }.bind(this));
+    }
+
+  /**
+     * Deletes an open request by its id
+     * @param {Number} id The request id
+     * @returns {Promise}
+     */
+    async deleteOpenRequest(id) {
+      if (this.auth_token === undefined) {
+        console.warn("Please define a auth_token with the function setAuthToken, before you can use this function.");
+        return false;
+      }
+      return new Promise(async function (resolve, reject) {
+        var response = await axios({
+          url: Config.API_ENDPOINT,
+          method: "DELETE",
+          headers: {
+            appid: this.appid,
+            appsecret: this.appsecret,
+            authtoken: this.auth_token
+          },
+          data: {
+            function: "delete_request",
+            request_id: id
+          }
+        });
+        if (response.status_code === 200) {
+          resolve(response.body)
+        } else {
+          reject(response.body);
+        }
+      }.bind(this));
+    }
+
+    /**
+     * Deletes an open request by its id
+     * @param {Number} id The request id
+     * @returns {Promise}
+     */
+    async deleteDeviceToken(id) {
+      if (this.auth_token === undefined) {
+        console.warn("Please define a auth_token with the function setAuthToken, before you can use this function.");
+        return false;
+      }
+      return new Promise(async function (resolve, reject) {
+        var response = await axios({
+          url: Config.API_ENDPOINT,
+          method: "DELETE",
+          headers: {
+            appid: this.appid,
+            appsecret: this.appsecret,
+            authtoken: this.auth_token
+          },
+          data: {
+            function: "delete_request",
+            request_id: id
+          }
+        });
+        if (response.status_code === 200) {
+          resolve(response.body)
+        } else {
+          reject(response.body);
+        }
+      }.bind(this));
     }
   }
 
