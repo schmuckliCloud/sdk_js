@@ -124,6 +124,13 @@ class sCMessaging {
         }
       }.bind(this));
     }
+
+    /**
+     * Fetchs all the assigned device tokens of the authenticated user.
+     */
+    async getAllAssignedTokens() {
+
+    }
   }
 
 /*
