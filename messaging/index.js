@@ -218,11 +218,11 @@ class sCMessaging {
     }
 
     /**
-     * Deletes an open request by its id
-     * @param {Number} id The request id
+     * Deletes a assigned device token from the user. For example when he sign outs.
+     * @param {Number} id The assigned token id
      * @returns {Promise}
      */
-    async deleteDeviceToken(id) {
+    async deleteAssignedToken(id) {
       if (this.auth_token === undefined) {
         console.warn("Please define a auth_token with the function setAuthToken, before you can use this function.");
         return false;
@@ -237,8 +237,8 @@ class sCMessaging {
             authtoken: this.auth_token
           },
           data: {
-            function: "delete_request",
-            request_id: id
+            function: "delete_assigned_token",
+            token_id: id
           }
         });
         if (response.status_code === 200) {
