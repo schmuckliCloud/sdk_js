@@ -44,10 +44,10 @@ class sCMessaging {
           token: device_token
         }
       });
-      if (response.status_code === 200) {
-        resolve(response.body)
+      if (response.status === 200) {
+        resolve(response.data)
       } else {
-        reject(response.body);
+        reject(response.data);
       }
     }.bind(this));
   }
@@ -80,10 +80,10 @@ class sCMessaging {
           body: body
         }
       });
-      if (response.status_code === 200) {
-        resolve(response.body)
+      if (response.status === 200) {
+        resolve(response.data)
       } else {
-        reject(response.body);
+        reject(response.data);
       }
     }.bind(this));
   }
@@ -117,10 +117,10 @@ class sCMessaging {
             timestamp: timestamp
           }
         });
-        if (response.status_code === 200) {
-          resolve(response.body)
+        if (response.status === 200) {
+          resolve(response.data)
         } else {
-          reject(response.body);
+          reject(response.data);
         }
       }.bind(this));
     }
@@ -147,10 +147,10 @@ class sCMessaging {
             function: "assigned_tokens"
           }
         });
-        if (response.status_code === 200) {
-          resolve(response.body)
+        if (response.status === 200) {
+          resolve(response.data)
         } else {
-          reject(response.body);
+          reject(response.data);
         }
       }.bind(this));
     }
@@ -177,10 +177,10 @@ class sCMessaging {
             function: "open_requests"
           }
         });
-        if (response.status_code === 200) {
-          resolve(response.body)
+        if (response.status === 200) {
+          resolve(response.data)
         } else {
-          reject(response.body);
+          reject(response.data);
         }
       }.bind(this));
     }
@@ -209,10 +209,10 @@ class sCMessaging {
             request_id: id
           }
         });
-        if (response.status_code === 200) {
-          resolve(response.body)
+        if (response.status === 200) {
+          resolve(response.data)
         } else {
-          reject(response.body);
+          reject(response.data);
         }
       }.bind(this));
     }
@@ -241,10 +241,10 @@ class sCMessaging {
             token_id: id
           }
         });
-        if (response.status_code === 200) {
-          resolve(response.body)
+        if (response.status === 200) {
+          resolve(response.data)
         } else {
-          reject(response.body);
+          reject(response.data);
         }
       }.bind(this));
     }
