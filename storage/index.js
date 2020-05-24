@@ -43,7 +43,7 @@ export class sCStorage {
   /**
   This method lets you retrieve all rows from a container.
   @param {String} container_name The container name, created via the schmuckliCloud console
-  @param {String} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
+  @param {String|Array|Object} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
   @param {Number} start Define a start index.
   @param {Number} limit Define a maximum of showing results.
   @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get the result.
@@ -57,10 +57,8 @@ export class sCStorage {
       }
 
       if (!sorting) {
-        if (sorting !== "asc" && sorting !== "desc") {
-          console.warn(
-            "schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data."
-          );
+        if (sorting instanceof Array || sorting instanceof Object) {
+          sorting = JSON.stringify(sorting);
         }
       } else {
         sorting = "";
@@ -142,10 +140,8 @@ export class sCStorage {
       var encodedFilter = encodeURI(JSON.stringify(filter));
 
       if (sorting !== undefined) {
-        if (sorting !== "asc" && sorting !== "desc") {
-          console.warn(
-            "schmuckliCloud SDK: The sorting is not declared correclty. Please use 'asc' (default) or 'desc' to sort the data."
-          );
+        if (sorting instanceof Array || sorting instanceof Object) {
+          sorting = JSON.stringify(sorting);
         }
       } else {
         sorting = "";
