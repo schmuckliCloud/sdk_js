@@ -56,7 +56,7 @@ export class sCStorage {
         reject(new Error("Please define a container."));
       }
 
-      if (!sorting) {
+      if (sorting !== undefined) {
         if (sorting instanceof Array || sorting instanceof Object) {
           sorting = JSON.stringify(sorting);
         }
