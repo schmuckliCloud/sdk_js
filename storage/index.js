@@ -46,9 +46,10 @@ export class sCStorage {
   @param {String|Array|Object} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
   @param {Number} start Define a start index.
   @param {Number} limit Define a maximum of showing results.
+  @param {Array} exclude Columns, which should be excluded from the results.
   @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get the result.
   */
-  getAll(container_name, sorting, start, limit) {
+  getAll(container_name, sorting, start, limit, exclude) {
     var global_this = this;
     return new Promise(function(resolve, reject) {
       //Check the properties before sending to the API
@@ -71,6 +72,12 @@ export class sCStorage {
         limit = "";
       }
 
+      if (exclude !== undefined) {
+        exclude = JSON.stringify(exclude);
+      } else {
+        exclude = JSON.stringify([]);
+      }
+
       axios
         .get(
           Config.API_ENDPOINT +
@@ -85,7 +92,9 @@ export class sCStorage {
             "&start=" +
             start +
             "&limit=" +
-            limit,
+            limit + 
+            "&exclude=" +
+            exclude,
           {
             headers: {
               appid: global_this.appid,
@@ -116,9 +125,10 @@ export class sCStorage {
   @param {String} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
   @param {Number} start Define a start index.
   @param {Number} limit Define a maximum of showing results.
+  @param {Array} exclude Columns, which should be excluded from the results.
   @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it.
   */
-  get(container_name, filter, sorting, start, limit) {
+  get(container_name, filter, sorting, start, limit, exclude) {
     var global_this = this;
     return new Promise(function(resolve, reject) {
       //Check the properties before sending to the API
@@ -154,6 +164,12 @@ export class sCStorage {
         limit = "";
       }
 
+      if (exclude !== undefined) {
+        exclude = JSON.stringify(exclude);
+      } else {
+        exclude = JSON.stringify([]);
+      }
+
       axios
         .get(
           Config.API_ENDPOINT +
@@ -170,7 +186,9 @@ export class sCStorage {
             "&start=" +
             start +
             "&limit=" +
-            limit,
+            limit +
+            "&exclude=" +
+            exclude,
           {
             headers: {
               appid: global_this.appid,
@@ -203,14 +221,21 @@ export class sCStorage {
    * Retrieve a single rowset by it's id.
    * @param {String} container_name The container name, where the ID is contained.
    * @param {Number} row_id The row id, which can be trieved by get or getAll.
+   * @param {Array} exclude Columns, which should be excluded from the results.
    * @return {Promise} The function returns a promise.
    */
-  getById(container_name, row_id) {
+  getById(container_name, row_id, exclude) {
     var global_this = this;
     return new Promise(function(resolve, reject) {
       //Check the properties before sending to the API
       if (container_name === undefined || container_name === "") {
         reject(new Error("Please define a container."));
+      }
+
+      if (exclude !== undefined) {
+        exclude = JSON.stringify(exclude);
+      } else {
+        exclude = JSON.stringify([]);
       }
 
       axios
@@ -223,7 +248,9 @@ export class sCStorage {
             "&container=" +
             encodeURI(container_name) +
             "&row=" +
-            row_id,
+            row_id +
+            "&exclude=" +
+            exclude,
           {
             headers: {
               appid: global_this.appid,
