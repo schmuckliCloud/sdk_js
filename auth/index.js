@@ -1,6 +1,9 @@
 import * as Config from "./config";
 import axios from "axios";
 
+/**
+ * The sCAuth instance communicates with the authentication service of the schmuckliCloud API.
+ */
 class sCAuth {
   /**
   Opens a new schmuckliCloud authentication instance. It can be used to manage then all the data in a defined project.

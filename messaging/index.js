@@ -3,7 +3,7 @@ import axios from "axios";
 
 class sCMessaging {
   /**
-  Opens a new schmuckliCloud authentication instance. It can be used to manage then all the data in a defined project.
+  Opens a new schmuckliCloud messaging instance.
   @param {String} app_id The APP ID, which was created for a client app in the schmuckliCloud console.
   @param {String} app_secret The APP Secret, which was created for a client app in the schmuckliCloud console.
   */

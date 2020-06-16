@@ -1,6 +1,9 @@
 import * as Config from "./config";
 import axios from "axios";
 
+/**
+ * The sCStorage instance communicates with the storage API.
+ */
 export class sCStorage {
   /**
   Opens a new schmuckliCloud storage instance. It can be used to manage then all the data in a defined project.
