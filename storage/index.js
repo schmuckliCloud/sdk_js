@@ -50,7 +50,7 @@ export class sCStorage {
   @param {Number} start Define a start index.
   @param {Number} limit Define a maximum of showing results.
   @param {Array} exclude Columns, which should be excluded from the results.
-  @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get the result.
+  @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get the result.
   */
   getAll(container_name, sorting, start, limit, exclude) {
     var global_this = this;
@@ -129,7 +129,7 @@ export class sCStorage {
   @param {Number} start Define a start index.
   @param {Number} limit Define a maximum of showing results.
   @param {Array} exclude Columns, which should be excluded from the results.
-  @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it.
+  @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it.
   */
   get(container_name, filter, sorting, start, limit, exclude) {
     var global_this = this;
@@ -225,7 +225,7 @@ export class sCStorage {
    * @param {String} container_name The container name, where the ID is contained.
    * @param {Number} row_id The row id, which can be trieved by get or getAll.
    * @param {Array} exclude Columns, which should be excluded from the results.
-   * @return {Promise} The function returns a promise.
+   * @return {Promise<sCResult>} The function returns a promise.
    */
   getById(container_name, row_id, exclude) {
     var global_this = this;
@@ -286,7 +286,7 @@ export class sCStorage {
   This methdod can add new rows to you container in the previous set dataset.
   @param {String} container_name The container name, created via the schmuckliCloud console
   @param {String} data A dataobject with a key-value pair. The key represents the columns defined in the schmuckliCloud console.
-  @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
+  @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
   */
   insert(container_name, data) {
     var global_this = this;
@@ -338,7 +338,7 @@ export class sCStorage {
   @param {String} container_name Define a container name, which should be updated.
   @param {Number} row_id Define a row id which should be updated
   @param {Object} data Define the data object in a key-value pair
-  @return {Promise} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
+  @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
   */
   update(container_name, row_id, data) {
     var global_this = this;
@@ -401,7 +401,7 @@ export class sCStorage {
   @param {String} container_name Define the container name, where the deletion process should take place
   @param {Number} row_id Define a row id, which can be retrieved by the 'get' or 'getAll' method.
   @param {String} column Define a column name, when just this data in this specific column should be deleted.
-  @return {Promise} Returns a promise. Once it has finished the deletion process you can fetch the result in the first parameter.
+  @return {Promise<sCResult>} Returns a promise. Once it has finished the deletion process you can fetch the result in the first parameter.
   */
   delete(container_name, row_id, column) {
     var global_this = this;
@@ -449,6 +449,11 @@ export class sCStorage {
     });
   }
 
+  /**
+   * Fetches the metadata of the given container name.
+   * @param {String} container_name The container name
+   * @return {Promise<sCResult>} A promise with the metadata
+   */
   metadata(container_name) {
     var global_this = this;
     return new Promise(function(resolve, reject) {
