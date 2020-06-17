@@ -1,6 +1,9 @@
 import * as Config from "./config";
 import axios from "axios";
 
+/**
+ * The sCMessaging instance communicates with the messaging API of the schmuckliCloud service.
+ */
 class sCMessaging {
   /**
   Opens a new schmuckliCloud messaging instance.
