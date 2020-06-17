@@ -24,7 +24,7 @@ class sCAuth {
    * @param {string} email The new email
    * @param {string} password The new password
    * @param {string} language A two letter language code (ex. de, en)
-   * @returns {boolean}
+   * @returns {Promise<sCResult>}
    */
   async registerEmailPassword(email, password, language) {
     var global_this = this;
@@ -61,7 +61,7 @@ class sCAuth {
    * Authorizes the user with email and password. In the body you will find the session token.
    * @param {string} email The email of the user
    * @param {string} password The password of the user
-   * @returns {sCResult} If it was successful, it will provide the session token in the body. Save it somewhere safe on the client.
+   * @returns {Promise<sCResult>} If it was successful, it will provide the session token in the body. Save it somewhere safe on the client.
    */
   async authorizeEmailPassword(email, password) {
     var global_this = this;
@@ -98,6 +98,7 @@ class sCAuth {
    * @param {string} email The email of the user, where the password should be changed.
    * @param {string} old_password The current password of the user.
    * @param {string} new_password The new password of the user.
+   * @return {Promise<sCResult>} If status code is 200, everything was fine.
    */
   async updatePassword(email, old_password, new_password) {
     var global_this = this;
@@ -134,7 +135,7 @@ class sCAuth {
   /**
    * If the user has forgottten his password, just provide the email and it will send an email with a password change link.
    * @param {string} email The email from the account (ex. EmailPassword or any other provider)
-   * @returns {sCResult}
+   * @returns {Promise<sCResult>} Response from the backend.
    */
   async requestResetPassword(email) {
     var global_this = this;
@@ -168,8 +169,9 @@ class sCAuth {
 
   /**
    * Updates the password for the user, after he has clicked the link in the received mail.
-   * @param {string} reset_token The reset token, provided from the sent email to the user
-   * @param {string} password The new password for the user
+   * @param {string} reset_token The reset token, provided from the sent email to the user.
+   * @param {string} password The new password for the user.
+   * @return {Promise<sCResult>} The response from the backend.
    */
   async updateResetPassword(reset_token, password) {
     var global_this = this;
@@ -205,7 +207,7 @@ class sCAuth {
   /**
    * Call this function, if the user has clicked on the activation link in the welcome email.
    * @param {string} token The token, which was given through the parameter in the email link.
-   * @returns {sCResult} If it was successful, then it will return a confirmation.
+   * @returns {Promise<sCResult>} If it was successful, then it will return a confirmation.
    */
   async activateUser(token) {
     var global_this = this;
@@ -240,6 +242,7 @@ class sCAuth {
   /**
    * Checks if the token provided is still valid and matches with the server.
    * @param {string} token The session token, which you got, when the user has been authorized.
+   * @return {Promise<sCResult>} The response of the backend.
    */
   async checkSession(token) {
     var global_this = this;
@@ -275,6 +278,7 @@ class sCAuth {
   /**
    * Gets more detailed information about the signed in user.
    * @param {string} token The token of the current session.
+   * @return {Promise<sCResult>} The response from the backend.
    */
   async getUserDetails(token) {
     var global_this = this;
@@ -313,6 +317,7 @@ class sCAuth {
   /**
    * Get all active session for the user.
    * @param {string} token The token of the current session.
+   * @return {Promise<sCResult>} If it was successful, it will return the list of active sessions.
    */
   async getActiveSessions(token) {
     var global_this = this;
@@ -351,6 +356,7 @@ class sCAuth {
   /**
    * Removes the current active session, which was given.
    * @param {string} token The session token of the current logged in session.
+   * @return {Promise<sCResult|Error>} If it was successful, then it will return you the backend response.
    */
   async logout(token) {
     var global_this = this;
@@ -390,6 +396,7 @@ class sCAuth {
    * Removes a session by the session id.
    * @param {string} current_token The token, where the user is currently signed in.
    * @param {int} id The session id, which should be removed.
+   * @return {Promise<sCResult>} The response from the backend.
    */
   async removeSession(current_token, id) {
     var global_this = this;
