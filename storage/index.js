@@ -50,7 +50,6 @@ export class sCStorage {
   @param {Number} [start] Define a start index.
   @param {Number} [limit] Define a maximum of showing results.
   @param {Array} [exclude] Columns, which should be excluded from the results.
-  @param {String} exclude[] The column which should be excluded.
   @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get the result.
   */
     getAll(container_name, sorting, start, limit, exclude) {
