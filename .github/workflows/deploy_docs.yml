@@ -18,7 +18,7 @@ jobs:
         npm install -g jsdoc
     - name: Build documentation
       run: |
-        jsdoc --configure .jsdoc.json --verbose
+        jsdoc --configure /.jsdoc.json --verbose
         jsdoc storage/index.js auth/index.js messaging/index.js
     - name: Deploy documentation
       uses: SamKirkland/FTP-Deploy-Action@2.0.0
