@@ -26,4 +26,4 @@ jobs:
         ftp-username: docs_ref_js
         ftp-password: ${{ secrets.FTP_PASSWORD }}
         local-dir: out
-        ARGS: --ignore-time
+        git-ftp-args: --ignore-time
