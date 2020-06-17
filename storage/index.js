@@ -26,7 +26,7 @@ export class sCStorage {
     /**
      * Binds the authentication token to the storage object, to use the protected dataset, reserved for the user.
      * @param {string} auth_token The authentication session token from the auth library.
-     * @param {boolean} not_reset By default, it will reset the dataset. If you want to use the authentication dataset, you must provide a empty dataset string.
+     * @param {boolean} [not_reset] By default, it will reset the dataset. If you want to use the authentication dataset, you must provide a empty dataset string.
      */
     setAuthToken(auth_token, not_reset) {
         this.auth_token = auth_token;
@@ -46,10 +46,11 @@ export class sCStorage {
     /**
   This method lets you retrieve all rows from a container.
   @param {String} container_name The container name, created via the schmuckliCloud console
-  @param {String|Array|Object} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
-  @param {Number} start Define a start index.
-  @param {Number} limit Define a maximum of showing results.
-  @param {Array} exclude Columns, which should be excluded from the results.
+  @param {String|Array|Object} [sorting] Sort the entries ascending ('asc' by default) or descending ('desc').
+  @param {Number} [start] Define a start index.
+  @param {Number} [limit] Define a maximum of showing results.
+  @param {Array} [exclude] Columns, which should be excluded from the results.
+  @param {String} exclude[] The column which should be excluded.
   @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get the result.
   */
     getAll(container_name, sorting, start, limit, exclude) {
@@ -129,10 +130,10 @@ export class sCStorage {
   This method lets you retrieve data with filters.
   @param {String} container_name The container name, created via the schmuckliCloud console
   @param {Array} filter A filter is an array, defining which entries should be displayed.
-  @param {String} sorting Sort the entries ascending ('asc' by default) or descending ('desc').
-  @param {Number} start Define a start index.
-  @param {Number} limit Define a maximum of showing results.
-  @param {Array} exclude Columns, which should be excluded from the results.
+  @param {String} [sorting] Sort the entries ascending ('asc' by default) or descending ('desc').
+  @param {Number} [start] Define a start index.
+  @param {Number} [limit] Define a maximum of showing results.
+  @param {Array} [exclude] Columns, which should be excluded from the results.
   @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it.
   */
     get(container_name, filter, sorting, start, limit, exclude) {
