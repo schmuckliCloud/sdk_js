@@ -18,10 +18,10 @@
     ],
     "templates": {
         "referenceTitle": "schmuckliCloud JS SDK",
-        "disableSort": false,
-        "collapse": true,
+        "disableSort": true,
+        "collapse": false,
         "resources": {
-            "google": "https://www.google.com/"
+            "Docs": "https://docs.schmuckli.cloud/"
         }
     },
     "opts": {
