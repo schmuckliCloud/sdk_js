@@ -253,9 +253,6 @@ class sCMessaging {
     }
   }
 
-/*
-Result object for filtering the
-*/
 class sCResult {
   constructor(status_code, message, body) {
     this.status_code = status_code;
@@ -263,10 +260,6 @@ class sCResult {
     this.data = body;
   }
 
-  /**
-   * Returns true, if the request was successfully.
-   * @returns {boolean}
-   */
   get isOK() {
     return this.status_code >= 200 && this.status_code <= 299 ? true : false;
   }
