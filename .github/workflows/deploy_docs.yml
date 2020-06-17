@@ -21,7 +21,7 @@ jobs:
         jsdoc -c jsdoc_conf.json --verbose
     - name: Deploy documentation
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
-      env:
+      with:
         ftp-server: lava.metanet.ch
         ftp-username: docs_ref_js
         ftp-password: ${{ secrets.FTP_PASSWORD }}
