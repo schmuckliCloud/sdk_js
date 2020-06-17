@@ -276,7 +276,7 @@ export class sCStorage {
                         var result = new sCResult(
                             result.data.status,
                             result.data.message,
-                            result.data.body[0]
+                            result.data.body === undefined ? {} : result.data.body[0]
                         );
                         resolve(result);
                     } else {
