@@ -523,7 +523,7 @@ export class sCResult {
     message = undefined;
 
     /**
-     * Returns the actual data, if it exists. Check first with `response.data`.
+     * Returns the actual data, if it exists. Check first with `response.data !== undefined`. It is the equal of the received body property from the backend.
      */
     data = undefined;
 
