@@ -1,31 +1,30 @@
 name: Deploy to documentation
 
 on:
-  push:
-    branches:    
-      - master  
+    push:
+        branches:
+            - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2.1.0
-      with:
-        fetch-depth: 2
-    - name: Set up Node
-      uses: actions/setup-node@v1
-    - name: Install dependencies
-      run: |
-        npm init -y
-        npm install -g jsdoc
-    - name: Build documentation
-      run: |
-        jsdoc -c jsdoc_conf.json --verbose
-    - name: Deploy documentation
-      uses: SamKirkland/FTP-Deploy-Action@3.1.1
-      with:
-        ftp-server: ftp://lava.metanet.ch
-        ftp-username: docs_ref_js
-        ftp-password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: out
-        git-ftp-args: --ignore-time
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2.1.0
+              with:
+                  fetch-depth: 2
+            - name: Set up Node
+              uses: actions/setup-node@v1
+            - name: Install dependencies
+              run: |
+                  npm init -y
+                  npm install -g jsdoc
+            - name: Build documentation
+              run: |
+                  jsdoc -c jsdoc_conf.json --verbose
+            - name: Deploy documentation
+              uses: SamKirkland/FTP-Deploy-Action@2.0.0
+              env:
+                  FTP_SERVER: lava.metanet.ch
+                  FTP_USERNAME: docs_ref_js
+                  FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+                  LOCAL_DIR: out
