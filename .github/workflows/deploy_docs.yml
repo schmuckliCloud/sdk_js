@@ -1,0 +1,32 @@
+name: Deploy to documentation
+
+on:
+  push:
+    branches:    
+      - master  
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+   steps:
+    - uses: actions/checkout@v1
+    - name: Set up Node
+      uses: actions/setup-node@v1
+    - name: Install dependencies
+      run: |
+        npm install -g jsdoc
+    - name: Build documentation
+      run: |
+        jsdoc storage/index.js auth/index.js messaging/index.js
+    - name: Deploy documentation
+      uses: SamKirkland/FTP-Deploy-Action@2.0.0
+      env:
+        FTP_SERVER: lava.metanet.ch
+        FTP_USERNAME: docs
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        LOCAL_DIR: out
+        REMOTE_DIR: api_reference
+        ARGS: --delete

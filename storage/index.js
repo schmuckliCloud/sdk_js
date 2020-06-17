@@ -486,16 +486,26 @@ export class sCStorage {
   }
 }
 
-/*
-Result object for filtering the
+/**
+Result object of any operation
 */
 export class sCResult {
+  /**
+   * This constructor is used to deliver the data to the business logic of your project.
+   * @param {Number} status_code The status codes tells you if the operation was successful.
+   * @param {String} message The message describes more information about the operation.
+   * @param {String|Object|Array} body The body contains the useable information for your app.
+   */
   constructor(status_code, message, body) {
     this.status_code = status_code;
     this.message = message;
     this.data = body;
   }
 
+  /**
+   * Returns true if everything was fine and no further operation has to be done.
+   * @return {boolean} True if everything was okay.
+   */
   get isOK() {
     return this.status_code >= 200 && this.status_code <= 299 ? true : false;
   }
