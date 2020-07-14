@@ -512,20 +512,6 @@ export class sCStorage {
 Result object of any operation
 */
 export class sCResult {
-    /**
-     * Returns you a three digit number.
-     */
-    status_code = undefined;
-
-    /**
-     * Returns you the message, received from the backend with detailed information about what happend during the operation.
-     */
-    message = undefined;
-
-    /**
-     * Returns the actual data, if it exists. Check first with `response.data !== undefined`. It is the equal of the received body property from the backend.
-     */
-    data = undefined;
 
     /**
      * This constructor is used to deliver the data to the business logic of your project.
@@ -534,8 +520,25 @@ export class sCResult {
      * @param {String|Object|Array} body The body contains the useable information for your app.
      */
     constructor(status_code, message, body) {
+        /**
+         * Returns you a three digit number.
+         * @type {number}
+         * @public
+         */
         this.status_code = status_code;
+
+        /**
+         * Returns you the message, received from the backend with detailed information about what happend during the operation.
+         * @type {string}
+         * @public
+         */
         this.message = message;
+
+        /**
+         * Returns the actual data, if it exists. Check first with `response.data !== undefined`. It is the equal of the received body property from the backend.
+         * @type {string}
+         * @public
+         */
         this.data = body;
     }
 
