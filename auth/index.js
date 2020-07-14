@@ -449,6 +449,88 @@ class sCAuth {
             });
         });
     }
+
+    /**
+     * Call this function when the user wants to setup the two factor authentication for his account. 
+     * @param {string} token The session token of the currently signed in user.
+     * @return {Promise<sCResult>} A response object with the secret and secret uri.
+     */
+    generateSetupTOTP(token) {
+        return new Promise(function(resolve, reject) {
+            axios({
+                url: Config.API_ENDPOINT,
+                method: "POST",
+                headers: {
+                    appid: this.appid,
+                    appsecret: this.appsecret,
+                    authtoken: token
+                },
+                data: {
+                    function: "create_temp_totp"
+                }
+            }).then(function(response) {
+                var data = response.data;
+                switch (response.status) {
+                    case 200:
+                    case 404:
+                        resolve(
+                            new sCResult(data.status, data.message, data.body)
+                        );
+                        break;
+                    default:
+                        reject(
+                            new Error(
+                                "There was an error while logout the session with this session. Following error message: " +
+                                    data.message
+                            )
+                        );
+                        break;
+                }
+            }.bind(this));
+        }.bind(this));
+    }
+
+    /**
+     * Call this function when the user wants to verify the code to finish the setup of the two factor authentication. 
+     * @param {string} token The session token of the currently signed in user.
+     * @param {string} code The six digit code, generated from the secret.
+     * @return {Promise<sCResult>} A response object with the confirmation.
+     */
+    verifySetupTOTP(token, code) {
+        return new Promise(function(resolve, reject) {
+            axios({
+                url: Config.API_ENDPOINT,
+                method: "POST",
+                headers: {
+                    appid: this.appid,
+                    appsecret: this.appsecret,
+                    authtoken: token
+                },
+                data: {
+                    function: "verify_temp_totp",
+                    code: code
+                }
+            }).then(function(response) {
+                var data = response.data;
+                switch (response.status) {
+                    case 200:
+                    case 404:
+                        resolve(
+                            new sCResult(data.status, data.message, data.body)
+                        );
+                        break;
+                    default:
+                        reject(
+                            new Error(
+                                "There was an error while logout the session with this session. Following error message: " +
+                                    data.message
+                            )
+                        );
+                        break;
+                }
+            }.bind(this));
+        }.bind(this));
+    }
 }
 
 class sCResult {
