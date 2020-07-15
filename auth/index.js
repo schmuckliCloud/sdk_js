@@ -480,7 +480,7 @@ class sCAuth {
                     default:
                         reject(
                             new Error(
-                                "There was an error while logout the session with this session. Following error message: " +
+                                "There was an error while generating an setup OTP code. Following error message: " +
                                     data.message
                             )
                         );
@@ -522,7 +522,7 @@ class sCAuth {
                     default:
                         reject(
                             new Error(
-                                "There was an error while logout the session with this session. Following error message: " +
+                                "There was an error while verifing the setup OTP. Following error message: " +
                                     data.message
                             )
                         );
@@ -531,6 +531,46 @@ class sCAuth {
             }.bind(this));
         }.bind(this));
     }
+
+    /**
+     * Disables the OTP option from the account.
+     * @param {string} token The session token from the signed in user.
+     * @return {Promise<sCResult>} The result, if the operation was successfully.
+     */
+    disableOTP(token) {
+        return new Promise(function(resolve, reject) {
+            axios({
+                url: Config.API_ENDPOINT,
+                method: "DELETE",
+                headers: {
+                    appid: this.appid,
+                    appsecret: this.appsecret,
+                    authtoken: token
+                },
+                data: {
+                    function: "disable_totp"
+                }
+            }).then(function(response) {
+                var data = response.data;
+                switch (response.status) {
+                    case 200:
+                    case 404:
+                        resolve(
+                            new sCResult(data.status, data.message, data.body)
+                        );
+                        break;
+                    default:
+                        reject(
+                            new Error(
+                                "There was an error while disabling the OTP. Following error message: " +
+                                    data.message
+                            )
+                        );
+                        break;
+                }
+            }.bind(this));
+        }.bind(this));
+    } 
 }
 
 class sCResult {
