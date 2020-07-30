@@ -229,6 +229,69 @@ export class sCStorage {
     }
 
     /**
+     This method lets you retrieve data with filters.
+    @param {String} container_name The container name, created via the schmuckliCloud console
+    @param {Array} filter A filter is an array, defining which entries should be displayed.
+    @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it.
+    */
+    count(container_name, filter) {
+        var global_this = this;
+        return new Promise(function(resolve, reject) {
+            //Check the properties before sending to the API
+            if (container_name === undefined || container_name === "") {
+                reject(new Error("Please define a container."));
+            }
+
+            if (!(filter instanceof Array)) {
+                reject(
+                    new Error(
+                        "Please provide an array containing the conditions."
+                    )
+                );
+            }
+            var encodedFilter = encodeURI(JSON.stringify(filter));
+
+            axios
+                .get(
+                    Config.API_ENDPOINT +
+                        "?bucket=" +
+                        global_this.bucket_id +
+                        "&dataset=" +
+                        encodeURI(global_this.dataset) +
+                        "&container=" +
+                        encodeURI(container_name) +
+                        "&filter=" +
+                        encodedFilter +
+                        "&count=true",
+                    {
+                        headers: {
+                            appid: global_this.appid,
+                            appsecret: global_this.appsecret,
+                            authtoken: global_this.auth_token
+                        }
+                    }
+                )
+                .then(function(result) {
+                    if (result.status === 200) {
+                        var result = new sCResult(
+                            result.data.status,
+                            result.data.message,
+                            result.data.body
+                        );
+                        resolve(result);
+                    } else {
+                        reject(
+                            new Error(
+                                "There was a problem with the API endpoint. Following error message was sent: " +
+                                    result.data.message
+                            )
+                        );
+                    }
+                });
+        });
+    }
+
+    /**
      * Retrieve a single rowset by it's id.
      * @param {String} container_name The container name, where the ID is contained.
      * @param {Number} row_id The row id, which can be trieved by get or getAll.
