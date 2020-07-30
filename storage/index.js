@@ -229,10 +229,10 @@ export class sCStorage {
     }
 
     /**
-     This method lets you retrieve data with filters.
+     This method returns the amount of data rows with/out filter.
     @param {String} container_name The container name, created via the schmuckliCloud console
     @param {Array} filter A filter is an array, defining which entries should be displayed.
-    @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it.
+    @return {Promise<sCResult>} The function returns you a promise. Get the amount with the `response.data.count` parameter.
     */
     count(container_name, filter) {
         var global_this = this;
