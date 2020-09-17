@@ -570,7 +570,44 @@ class sCAuth {
                 }
             }.bind(this));
         }.bind(this));
-    } 
+    }
+
+    /**
+     * Creates an export of a user and sends it via mail.
+     * @param {String} token The token of the user, from where the export should be made.
+     * @return {Promise<sCResult>}
+     */
+    requestExport(token) {
+        return new Promise(function(resolve, reject) {
+            axios({
+                url: Config.API_ENDPOINT + "export.php",
+                method: "GET",
+                headers: {
+                    appid: this.appid,
+                    appsecret: this.appsecret,
+                    authtoken: token
+                }
+            }).then(function(response) {
+                var data = response.data;
+                switch (response.status) {
+                    case 200:
+                    case 404:
+                        resolve(
+                            new sCResult(data.status, data.message, data.body)
+                        );
+                        break;
+                    default:
+                        reject(
+                            new Error(
+                                "There was an error while trying to export the data. Following error message: " +
+                                    data.message
+                            )
+                        );
+                        break;
+                }
+            }.bind(this));
+        }.bind(this));
+    }
 }
 
 class sCResult {
