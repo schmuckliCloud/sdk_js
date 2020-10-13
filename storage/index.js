@@ -1,4 +1,4 @@
-import * as Config from "./config";
+import * as Config from "./config.js";
 import axios from "axios";
 
 /**
