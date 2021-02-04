@@ -54,7 +54,7 @@ export class sCStorage {
   */
     getAll(container_name, sorting, start, limit, exclude) {
         var global_this = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
             if (container_name === undefined || container_name === "") {
                 reject(new Error("Please define a container."));
@@ -102,11 +102,11 @@ export class sCStorage {
                         headers: {
                             appid: global_this.appid,
                             appsecret: global_this.appsecret,
-                            authtoken: global_this.auth_token
-                        }
+                            authtoken: global_this.auth_token,
+                        },
                     }
                 )
-                .then(function(result) {
+                .then(function (result) {
                     if (result.status === 200) {
                         var result = new sCResult(
                             result.data.status,
@@ -137,7 +137,7 @@ export class sCStorage {
   */
     get(container_name, filter, sorting, start, limit, exclude) {
         var global_this = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
             if (container_name === undefined || container_name === "") {
                 reject(new Error("Please define a container."));
@@ -204,11 +204,11 @@ export class sCStorage {
                         headers: {
                             appid: global_this.appid,
                             appsecret: global_this.appsecret,
-                            authtoken: global_this.auth_token
-                        }
+                            authtoken: global_this.auth_token,
+                        },
                     }
                 )
-                .then(function(result) {
+                .then(function (result) {
                     if (result.status === 200) {
                         var result = new sCResult(
                             result.data.status,
@@ -236,7 +236,7 @@ export class sCStorage {
     */
     count(container_name, filter) {
         var global_this = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
             if (container_name === undefined || container_name === "") {
                 reject(new Error("Please define a container."));
@@ -267,11 +267,149 @@ export class sCStorage {
                         headers: {
                             appid: global_this.appid,
                             appsecret: global_this.appsecret,
-                            authtoken: global_this.auth_token
-                        }
+                            authtoken: global_this.auth_token,
+                        },
                     }
                 )
-                .then(function(result) {
+                .then(function (result) {
+                    if (result.status === 200) {
+                        var result = new sCResult(
+                            result.data.status,
+                            result.data.message,
+                            result.data.body
+                        );
+                        resolve(result);
+                    } else {
+                        reject(
+                            new Error(
+                                "There was a problem with the API endpoint. Following error message was sent: " +
+                                    result.data.message
+                            )
+                        );
+                    }
+                });
+        });
+    }
+
+    /**
+     This method returns the SUM of field with/out filter.
+    @param {String} container_name The container name, created via the schmuckliCloud console
+    @param {Array} filter A filter is an array, defining which entries should be displayed.
+    @param {String} field_name The name of the field, which should be used for the result.
+    @return {Promise<sCResult>} The function returns you a promise. Get the amount with the `response.data.count` parameter.
+    */
+    sum(container_name, filter, field_name) {
+        var global_this = this;
+        return new Promise(function (resolve, reject) {
+            //Check the properties before sending to the API
+            if (container_name === undefined || container_name === "") {
+                reject(new Error("Please define a container."));
+            }
+
+            if (field_name === undefined || field_name === "") {
+                reject(new Error("Please define a field name."));
+            }
+
+            if (!(filter instanceof Array)) {
+                reject(
+                    new Error(
+                        "Please provide an array containing the conditions."
+                    )
+                );
+            }
+            var encodedFilter = encodeURI(JSON.stringify(filter));
+
+            axios
+                .get(
+                    Config.API_ENDPOINT +
+                        "?bucket=" +
+                        global_this.bucket_id +
+                        "&dataset=" +
+                        encodeURI(global_this.dataset) +
+                        "&container=" +
+                        encodeURI(container_name) +
+                        "&filter=" +
+                        encodedFilter +
+                        "&sum=" +
+                        field_name,
+                    {
+                        headers: {
+                            appid: global_this.appid,
+                            appsecret: global_this.appsecret,
+                            authtoken: global_this.auth_token,
+                        },
+                    }
+                )
+                .then(function (result) {
+                    if (result.status === 200) {
+                        var result = new sCResult(
+                            result.data.status,
+                            result.data.message,
+                            result.data.body
+                        );
+                        resolve(result);
+                    } else {
+                        reject(
+                            new Error(
+                                "There was a problem with the API endpoint. Following error message was sent: " +
+                                    result.data.message
+                            )
+                        );
+                    }
+                });
+        });
+    }
+
+    /**
+     This method returns the AVG of field with/out filter.
+    @param {String} container_name The container name, created via the schmuckliCloud console
+    @param {Array} filter A filter is an array, defining which entries should be displayed.
+    @param {String} field_name The name of the field, which should be used for the result.
+    @return {Promise<sCResult>} The function returns you a promise. Get the amount with the `response.data.count` parameter.
+    */
+    avg(container_name, filter, field_name) {
+        var global_this = this;
+        return new Promise(function (resolve, reject) {
+            //Check the properties before sending to the API
+            if (container_name === undefined || container_name === "") {
+                reject(new Error("Please define a container."));
+            }
+
+            if (field_name === undefined || field_name === "") {
+                reject(new Error("Please define a field name."));
+            }
+
+            if (!(filter instanceof Array)) {
+                reject(
+                    new Error(
+                        "Please provide an array containing the conditions."
+                    )
+                );
+            }
+            var encodedFilter = encodeURI(JSON.stringify(filter));
+
+            axios
+                .get(
+                    Config.API_ENDPOINT +
+                        "?bucket=" +
+                        global_this.bucket_id +
+                        "&dataset=" +
+                        encodeURI(global_this.dataset) +
+                        "&container=" +
+                        encodeURI(container_name) +
+                        "&filter=" +
+                        encodedFilter +
+                        "&avg=" +
+                        field_name,
+                    {
+                        headers: {
+                            appid: global_this.appid,
+                            appsecret: global_this.appsecret,
+                            authtoken: global_this.auth_token,
+                        },
+                    }
+                )
+                .then(function (result) {
                     if (result.status === 200) {
                         var result = new sCResult(
                             result.data.status,
@@ -300,7 +438,7 @@ export class sCStorage {
      */
     getById(container_name, row_id, exclude) {
         var global_this = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
             if (container_name === undefined || container_name === "") {
                 reject(new Error("Please define a container."));
@@ -329,16 +467,18 @@ export class sCStorage {
                         headers: {
                             appid: global_this.appid,
                             appsecret: global_this.appsecret,
-                            authtoken: global_this.auth_token
-                        }
+                            authtoken: global_this.auth_token,
+                        },
                     }
                 )
-                .then(function(result) {
+                .then(function (result) {
                     if (result.status === 200) {
                         var result = new sCResult(
                             result.data.status,
                             result.data.message,
-                            result.data.body === undefined ? {} : result.data.body[0]
+                            result.data.body === undefined
+                                ? {}
+                                : result.data.body[0]
                         );
                         resolve(result);
                     } else {
@@ -361,7 +501,7 @@ export class sCStorage {
   */
     insert(container_name, data) {
         var global_this = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
             if (container_name === undefined || container_name === "") {
                 reject(new Error("Please define a container."));
@@ -380,15 +520,15 @@ export class sCStorage {
                 headers: {
                     appid: global_this.appid,
                     appsecret: global_this.appsecret,
-                    authtoken: global_this.auth_token
+                    authtoken: global_this.auth_token,
                 },
                 data: {
                     bucket: global_this.bucket_id,
                     dataset: encodeURI(global_this.dataset),
                     container: encodeURI(container_name),
-                    data: final_data
-                }
-            }).then(function(response) {
+                    data: final_data,
+                },
+            }).then(function (response) {
                 var data = response.data;
                 if (response.status === 200) {
                     resolve(new sCResult(data.status, data.message, data.body));
@@ -413,7 +553,7 @@ export class sCStorage {
   */
     update(container_name, row_id, data) {
         var global_this = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
             if (container_name === undefined || container_name === "") {
                 reject(new Error("Please define a container."));
@@ -449,16 +589,16 @@ export class sCStorage {
                 headers: {
                     appid: global_this.appid,
                     appsecret: global_this.appsecret,
-                    authtoken: global_this.auth_token
+                    authtoken: global_this.auth_token,
                 },
                 data: {
                     bucket: global_this.bucket_id,
                     dataset: encodeURI(global_this.dataset),
                     container: encodeURI(container_name),
                     row: row_id,
-                    data: data
-                }
-            }).then(function(response) {
+                    data: data,
+                },
+            }).then(function (response) {
                 var data = response.data;
                 if (response.status === 200) {
                     resolve(new sCResult(data.status, data.message, data.body));
@@ -483,7 +623,7 @@ export class sCStorage {
   */
     delete(container_name, row_id, column) {
         var global_this = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
             if (container_name === undefined || container_name === "") {
                 reject(new Error("Please define a container."));
@@ -504,16 +644,16 @@ export class sCStorage {
                 headers: {
                     appid: global_this.appid,
                     appsecret: global_this.appsecret,
-                    authtoken: global_this.auth_token
+                    authtoken: global_this.auth_token,
                 },
                 data: {
                     bucket: global_this.bucket_id,
                     dataset: encodeURI(global_this.dataset),
                     container: encodeURI(container_name),
                     row: row_id,
-                    col: column
-                }
-            }).then(function(response) {
+                    col: column,
+                },
+            }).then(function (response) {
                 var data = response.data;
                 if (response.status === 200) {
                     resolve(new sCResult(data.status, data.message, data.body));
@@ -536,7 +676,7 @@ export class sCStorage {
      */
     metadata(container_name) {
         var global_this = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
             if (container_name === undefined || container_name === "") {
                 reject(new Error("Please define a container."));
@@ -548,13 +688,13 @@ export class sCStorage {
                 headers: {
                     appid: global_this.appid,
                     appsecret: global_this.appsecret,
-                    authtoken: global_this.auth_token
+                    authtoken: global_this.auth_token,
                 },
                 params: {
                     bucket: global_this.bucket_id,
-                    container: encodeURI(container_name)
-                }
-            }).then(function(response) {
+                    container: encodeURI(container_name),
+                },
+            }).then(function (response) {
                 var data = response.data;
                 if (response.status === 200) {
                     resolve(new sCResult(data.status, data.message, data.body));
@@ -575,7 +715,6 @@ export class sCStorage {
 Result object of any operation
 */
 export class sCResult {
-
     /**
      * This constructor is used to deliver the data to the business logic of your project.
      * @param {Number} status_code The status codes tells you if the operation was successful.
