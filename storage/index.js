@@ -133,9 +133,10 @@ export class sCStorage {
   @param {Number} [start] Define a start index.
   @param {Number} [limit] Define a maximum of showing results.
   @param {Array} [exclude] Columns, which should be excluded from the results.
+  @param {String} [filter_connect] Sets the connection between the filters. (Default: OR)
   @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it.
   */
-    get(container_name, filter, sorting, start, limit, exclude) {
+    get(container_name, filter, sorting, start, limit, exclude, filter_connect) {
         var global_this = this;
         return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
@@ -175,6 +176,10 @@ export class sCStorage {
                 limit = "";
             }
 
+            if (filter_connect == undefined) {
+                filter_connect = "OR";
+            }
+
             if (exclude !== undefined) {
                 exclude = JSON.stringify(exclude);
             } else {
@@ -192,6 +197,8 @@ export class sCStorage {
                         encodeURI(container_name) +
                         "&filter=" +
                         encodedFilter +
+                        "&filter_connect=" +
+                        filter_connect +
                         "&order=" +
                         sorting +
                         "&start=" +
@@ -232,9 +239,10 @@ export class sCStorage {
      This method returns the amount of data rows with/out filter.
     @param {String} container_name The container name, created via the schmuckliCloud console
     @param {Array} filter A filter is an array, defining which entries should be displayed.
+    @param {String} [filter_connect] Sets the connection between the filters. (Default: OR)
     @return {Promise<sCResult>} The function returns you a promise. Get the amount with the `response.data.count` parameter.
     */
-    count(container_name, filter) {
+    count(container_name, filter, filter_connect) {
         var global_this = this;
         return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
@@ -262,6 +270,8 @@ export class sCStorage {
                         encodeURI(container_name) +
                         "&filter=" +
                         encodedFilter +
+                        "&filter_connect=" + 
+                        filter_connect +
                         "&count=true",
                     {
                         headers: {
@@ -296,9 +306,10 @@ export class sCStorage {
     @param {String} container_name The container name, created via the schmuckliCloud console
     @param {Array} filter A filter is an array, defining which entries should be displayed.
     @param {String} field_name The name of the field, which should be used for the result.
+    @param {String} [filter_connect] Sets the connection between the filters. (Default: OR)
     @return {Promise<sCResult>} The function returns you a promise. Get the amount with the `response.data.count` parameter.
     */
-    sum(container_name, filter, field_name) {
+    sum(container_name, filter, field_name, filter_connect) {
         var global_this = this;
         return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
@@ -330,6 +341,8 @@ export class sCStorage {
                         encodeURI(container_name) +
                         "&filter=" +
                         encodedFilter +
+                        "&filter_connect=" +
+                        filter_connect +
                         "&sum=" +
                         field_name,
                     {
@@ -365,9 +378,10 @@ export class sCStorage {
     @param {String} container_name The container name, created via the schmuckliCloud console
     @param {Array} filter A filter is an array, defining which entries should be displayed.
     @param {String} field_name The name of the field, which should be used for the result.
+    @param {String} [filter_connect] Sets the connection between the filters. (Default: OR)
     @return {Promise<sCResult>} The function returns you a promise. Get the amount with the `response.data.count` parameter.
     */
-    avg(container_name, filter, field_name) {
+    avg(container_name, filter, field_name, filter_connect) {
         var global_this = this;
         return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
@@ -399,6 +413,8 @@ export class sCStorage {
                         encodeURI(container_name) +
                         "&filter=" +
                         encodedFilter +
+                        "&filter_connect=" +
+                        filter_connect +
                         "&avg=" +
                         field_name,
                     {
