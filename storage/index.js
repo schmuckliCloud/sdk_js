@@ -488,7 +488,7 @@ export class sCStorage {
                 } else {
                     reject(
                         new Error(
-                            "There was an error while inserting data. Following error message: " +
+                            "There was an error while creating a share link. Following error message: " +
                                 data.message
                         )
                     );
@@ -518,7 +518,7 @@ export class sCStorage {
                 } else {
                     reject(
                         new Error(
-                            "There was an error while inserting data. Following error message: " +
+                            "There was an error while fetching the share links. Following error message: " +
                                 data.message
                         )
                     );
@@ -533,7 +533,38 @@ export class sCStorage {
      * @returns The status of the operation.
      */
     deleteLink(share_id) {
+        var global_this = this;
+        return new Promise(function (resolve, reject) {
+            //Check the properties before sending to the API
+            if (share_id === undefined || share_id === "") {
+                reject(new Error("Please define a container."));
+            }
 
+            axios({
+                url: Config.API_ENDPOINT + "/share.php",
+                method: "DELETE",
+                headers: {
+                    appid: global_this.appid,
+                    appsecret: global_this.appsecret,
+                    authtoken: global_this.auth_token,
+                },
+                data: {
+                    share_id: share_id
+                },
+            }).then(function (response) {
+                var data = response.data;
+                if (response.status === 200) {
+                    resolve(new sCResult(data.status, data.message, data.body));
+                } else {
+                    reject(
+                        new Error(
+                            "There was an error while deleting the share link. Following error message: " +
+                                data.message
+                        )
+                    );
+                }
+            });
+        });
     }
 
     /**
