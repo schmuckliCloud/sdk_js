@@ -374,7 +374,7 @@ export class sCStorage {
     }
 
     /**
-     This method returns the AVG of field with/out filter.
+    This method returns the AVG of field with/out filter.
     @param {String} container_name The container name, created via the schmuckliCloud console
     @param {Array} filter A filter is an array, defining which entries should be displayed.
     @param {String} field_name The name of the field, which should be used for the result.
@@ -446,6 +446,97 @@ export class sCStorage {
     }
 
     /**
+     * Creates a share link with the containing rows.
+     * @param {String} container_name The container name, where the rows are located.
+     * @param {Array} rows The row id's, which should be shared via a link.
+     */
+    createShareLink(container_name, rows) {
+        var global_this = this;
+        return new Promise(function (resolve, reject) {
+            //Check the properties before sending to the API
+            if (container_name === undefined || container_name === "") {
+                reject(new Error("Please define a container."));
+            }
+
+            if (!(rows instanceof Array)) {
+                reject(
+                    new Error(
+                        "Please provide an array with row id's."
+                    )
+                );
+            }
+
+            var fRows = rows.join(", ");
+
+            axios({
+                url: Config.API_ENDPOINT + "/share.php",
+                method: "POST",
+                headers: {
+                    appid: global_this.appid,
+                    appsecret: global_this.appsecret,
+                    authtoken: global_this.auth_token,
+                },
+                data: {
+                    bucket: global_this.bucket_id,
+                    container: encodeURI(container_name),
+                    rows: fRows
+                },
+            }).then(function (response) {
+                var data = response.data;
+                if (response.status === 200) {
+                    resolve(new sCResult(data.status, data.message, data.body));
+                } else {
+                    reject(
+                        new Error(
+                            "There was an error while inserting data. Following error message: " +
+                                data.message
+                        )
+                    );
+                }
+            });
+        });
+    }
+
+    /**
+     * Returns the already shared links by the currently signed in user.
+     * @returns {Array} The link detailsf
+     */
+    getShareLinks() {
+        return new Promise(function(resolve, reject) {
+            axios({
+                url: Config.API_ENDPOINT + "/share.php",
+                method: "GET",
+                headers: {
+                    appid: global_this.appid,
+                    appsecret: global_this.appsecret,
+                    authtoken: global_this.auth_token,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (response.status === 200) {
+                    resolve(new sCResult(data.status, data.message, data.body));
+                } else {
+                    reject(
+                        new Error(
+                            "There was an error while inserting data. Following error message: " +
+                                data.message
+                        )
+                    );
+                }
+            });
+        });
+    }
+
+    /**
+     * Deletes an existing share link from the currently signed in account.
+     * @param {Number} share_id The id of the share link, which should be deleted.
+     * @returns The status of the operation.
+     */
+    deleteLink(share_id) {
+
+    }
+
+    /**
      * Retrieve a single rowset by it's id.
      * @param {String} container_name The container name, where the ID is contained.
      * @param {Number} row_id The row id, which can be trieved by get or getAll.
@@ -510,11 +601,11 @@ export class sCStorage {
     }
 
     /**
-  This methdod can add new rows to you container in the previous set dataset.
-  @param {String} container_name The container name, created via the schmuckliCloud console
-  @param {String} data A dataobject with a key-value pair. The key represents the columns defined in the schmuckliCloud console.
-  @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
-  */
+     This methdod can add new rows to you container in the previous set dataset.
+    @param {String} container_name The container name, created via the schmuckliCloud console
+    @param {String} data A dataobject with a key-value pair. The key represents the columns defined in the schmuckliCloud console.
+    @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
+    */
     insert(container_name, data) {
         var global_this = this;
         return new Promise(function (resolve, reject) {
@@ -561,12 +652,12 @@ export class sCStorage {
     }
 
     /**
-  This method updates a specific row in a container
-  @param {String} container_name Define a container name, which should be updated.
-  @param {Number} row_id Define a row id which should be updated
-  @param {Object} data Define the data object in a key-value pair
-  @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
-  */
+     This method updates a specific row in a container
+    @param {String} container_name Define a container name, which should be updated.
+    @param {Number} row_id Define a row id which should be updated
+    @param {Object} data Define the data object in a key-value pair
+    @return {Promise<sCResult>} The function returns you a promise. You can use the 'then' method, to wait for it. Afterwards you get a true (when everything was fine) or an error object.
+    */
     update(container_name, row_id, data) {
         var global_this = this;
         return new Promise(function (resolve, reject) {
