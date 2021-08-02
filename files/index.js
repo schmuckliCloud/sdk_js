@@ -44,6 +44,7 @@ class sCFiles {
                 appid: this.appid,
                 appsecret: this.appsecret,
                 authtoken: this.auth_token,
+                "Content-Type": "multipart/form-data",
             },
             data: formData,
         });
