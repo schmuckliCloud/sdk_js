@@ -1,0 +1,30 @@
+{
+  "name": "schmucklicloud_files",
+  "version": "1.0.0",
+  "description": "Upload files to the schmuckliCloud service and integrate it with other services.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schmuckliCloud/sdk_js.git"
+  },
+  "keywords": [
+    "schmucklicloud"
+  ],
+  "author": "Julian Schmuckli",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "mocha": "^6.2.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
