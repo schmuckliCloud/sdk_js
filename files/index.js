@@ -6,7 +6,7 @@ import axios from "axios";
  */
 class sCFiles {
     /**
-  Opens a new schmuckliCloud messaging instance.
+  Opens a new schmuckliCloud files instance.
   @param {String} app_id The APP ID, which was created for a client app in the schmuckliCloud console.
   @param {String} app_secret The APP Secret, which was created for a client app in the schmuckliCloud console.
   */
