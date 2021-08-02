@@ -8,6 +8,7 @@
             "storage/index.js",
             "auth/index.js",
             "messaging/index.js",
+            "files/index.js",
             "README_docs.md"
         ],
         "includePattern": ".js$",

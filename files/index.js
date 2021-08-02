@@ -23,6 +23,11 @@ class sCFiles {
         this.auth_token = auth_token;
     }
 
+    /**
+     * Uploads the given files with the defined auth token before and returns the result like token and location.
+     * @param {array} files Contains an array with files from a file input field.
+     * @returns {sCResult}
+     */
     async upload(files) {
         // Source: https://www.codegrepper.com/code-examples/javascript/sending+files+to+php+using+axios
         var formData = new FormData();
