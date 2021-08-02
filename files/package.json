@@ -1,6 +1,6 @@
 {
   "name": "schmucklicloud_files",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Upload files to the schmuckliCloud service and integrate it with other services.",
   "main": "index.js",
   "repository": {
@@ -13,7 +13,7 @@
   "author": "Julian Schmuckli",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

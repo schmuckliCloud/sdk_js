@@ -1,5 +1,5 @@
 # schmuckliCloud Files SDK for JavaScript
-
+This is the official Files SDK to upload and view files from the schmuckliCloud service.
 
 ## Installation
 To install this package you just enter the following command in the terminal of your project
