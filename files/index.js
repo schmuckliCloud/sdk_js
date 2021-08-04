@@ -55,7 +55,7 @@ class sCFiles {
             data: formData,
         });
 
-        return new sCResult(response.status, response.message, response.body);
+        return new sCResult(response.data.status, response.data.message, response.data.body);
     }
 
     /**
@@ -82,7 +82,7 @@ class sCFiles {
             },
         });
 
-        return new sCResult(response.status, response.message, response.body);
+        return new sCResult(response.data.status, response.data.message, response.data.body);
     }
 
     /**
@@ -110,7 +110,7 @@ class sCFiles {
             },
         });
 
-        return new sCResult(response.status, response.message, response.body);
+        return new sCResult(response.data.status, response.data.message, response.data.body);
     }
 }
 
