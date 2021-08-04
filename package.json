@@ -1,6 +1,7 @@
 {
   "name": "schmucklicloud_sdk_js",
   "version": "1.0.0",
+  "private": true,
   "description": "This is the official schmuckliCloud SDK for JavaScript. The repository is splitted into several parts. Depending on what service you need, you will find an SDK.",
   "main": "index.js",
   "directories": {

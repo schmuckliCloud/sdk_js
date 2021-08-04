@@ -30,10 +30,10 @@ class sCFiles {
      */
     async upload(files) {
         if (files == undefined) {
-            return sCResult(400, "Please provide at least one file.");
+            return new sCResult(400, "Please provide at least one file.");
         }
         if (this.auth_token) {
-            return sCResult(403, "Please provide an auth token before you do this request.");
+            return new sCResult(403, "Please provide an auth token before you do this request.");
         }
         // Source: https://www.codegrepper.com/code-examples/javascript/sending+files+to+php+using+axios
         var formData = new FormData();
@@ -64,6 +64,10 @@ class sCFiles {
      * @returns {sCResult} Returns the new token in the body.
      */
     async resetToken(filename) {
+        if (filename == "") {
+            return new sCResult(400, "Please provide a valid filename");
+        }
+        
         var response = await axios({
             url: Config.API_ENDPOINT,
             method: "PUT",
@@ -88,10 +92,10 @@ class sCFiles {
      */
     async delete(filename) {
         if (filename == "") {
-            return sCResult(400, "Please provide a valid filename");
+            return new sCResult(400, "Please provide a valid filename");
         }
         if (this.auth_token) {
-            return sCResult(403, "Please provide an auth token before you do this request.");
+            return new sCResult(403, "Please provide an auth token before you do this request.");
         }
         var response = await axios({
             url: Config.API_ENDPOINT,
