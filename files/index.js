@@ -32,7 +32,7 @@ class sCFiles {
         if (files == undefined) {
             return new sCResult(400, "Please provide at least one file.");
         }
-        if (this.auth_token) {
+        if (this.auth_token == undefined) {
             return new sCResult(403, "Please provide an auth token before you do this request.");
         }
         // Source: https://www.codegrepper.com/code-examples/javascript/sending+files+to+php+using+axios
@@ -67,7 +67,7 @@ class sCFiles {
         if (filename == "") {
             return new sCResult(400, "Please provide a valid filename");
         }
-        
+
         var response = await axios({
             url: Config.API_ENDPOINT,
             method: "PUT",
@@ -94,7 +94,7 @@ class sCFiles {
         if (filename == "") {
             return new sCResult(400, "Please provide a valid filename");
         }
-        if (this.auth_token) {
+        if (this.auth_token == undefined) {
             return new sCResult(403, "Please provide an auth token before you do this request.");
         }
         var response = await axios({
