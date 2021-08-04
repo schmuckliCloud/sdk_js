@@ -29,6 +29,12 @@ class sCFiles {
      * @returns {sCResult}
      */
     async upload(files) {
+        if (files == undefined) {
+            return sCResult(400, "Please provide at least one file.");
+        }
+        if (this.auth_token) {
+            return sCResult(403, "Please provide an auth token before you do this request.");
+        }
         // Source: https://www.codegrepper.com/code-examples/javascript/sending+files+to+php+using+axios
         var formData = new FormData();
         var i = 0;
@@ -47,6 +53,57 @@ class sCFiles {
                 "Content-Type": "multipart/form-data",
             },
             data: formData,
+        });
+
+        return new sCResult(response.status, response.message, response.body);
+    }
+
+    /**
+     * Resets the currently active token for the given filename with a new one.
+     * @param {string} filename The name of the file, where the token should be reset.
+     * @returns {sCResult} Returns the new token in the body.
+     */
+    async resetToken(filename) {
+        var response = await axios({
+            url: Config.API_ENDPOINT,
+            method: "PUT",
+            headers: {
+                appid: this.appid,
+                appsecret: this.appsecret,
+                authtoken: this.auth_token,
+            },
+            data: {
+                function: "reset_token",
+                filename: filename,
+            },
+        });
+
+        return new sCResult(response.status, response.message, response.body);
+    }
+
+    /**
+     * Deletes the file with the given name.
+     * @param {string} filename The name of the file, where the token should be reset.
+     * @returns {sCResult} Returns the new token in the body.
+     */
+    async delete(filename) {
+        if (filename == "") {
+            return sCResult(400, "Please provide a valid filename");
+        }
+        if (this.auth_token) {
+            return sCResult(403, "Please provide an auth token before you do this request.");
+        }
+        var response = await axios({
+            url: Config.API_ENDPOINT,
+            method: "DELETE",
+            headers: {
+                appid: this.appid,
+                appsecret: this.appsecret,
+                authtoken: this.auth_token,
+            },
+            data: {
+                filename: filename,
+            },
         });
 
         return new sCResult(response.status, response.message, response.body);

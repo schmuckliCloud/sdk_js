@@ -1,6 +1,6 @@
 {
   "name": "schmucklicloud_files",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Upload files to the schmuckliCloud service and integrate it with other services.",
   "main": "index.js",
   "repository": {
