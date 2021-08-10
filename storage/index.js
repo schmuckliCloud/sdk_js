@@ -502,6 +502,7 @@ export class sCStorage {
      * @returns {Array} The link detailsf
      */
     getShareLinks() {
+        var global_this = this;
         return new Promise(function(resolve, reject) {
             axios({
                 url: Config.API_ENDPOINT + "/share.php",
