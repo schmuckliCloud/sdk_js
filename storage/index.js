@@ -469,7 +469,7 @@ export class sCStorage {
             var fRows = rows.join(", ");
 
             axios({
-                url: Config.API_ENDPOINT + "/share.php",
+                url: Config.API_ENDPOINT + "share.php",
                 method: "POST",
                 headers: {
                     appid: global_this.appid,
@@ -505,7 +505,7 @@ export class sCStorage {
         var global_this = this;
         return new Promise(function(resolve, reject) {
             axios({
-                url: Config.API_ENDPOINT + "/share.php",
+                url: Config.API_ENDPOINT + "share.php",
                 method: "GET",
                 headers: {
                     appid: global_this.appid,
@@ -542,7 +542,7 @@ export class sCStorage {
             }
 
             axios({
-                url: Config.API_ENDPOINT + "/share.php",
+                url: Config.API_ENDPOINT + "share.php",
                 method: "DELETE",
                 headers: {
                     appid: global_this.appid,
