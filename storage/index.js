@@ -449,8 +449,11 @@ export class sCStorage {
      * Creates a share link with the containing rows.
      * @param {String} container_name The container name, where the rows are located.
      * @param {Array} rows The row id's, which should be shared via a link.
+     * @param {string} [password] Sets a password. Leave blank, if you want don't want to set a password.
+     * @param {string} [expire] Sets a expire date. Leave blank, if you want don't want to set a expire date. The link will then be available for an unlimited time.
+     * @return {Promise<sCResult>} The function returns you a promise with the result object.
      */
-    createShareLink(container_name, rows) {
+    createShareLink(container_name, rows, password, expire) {
         var global_this = this;
         return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
@@ -466,6 +469,14 @@ export class sCStorage {
                 );
             }
 
+            if (password == undefined) {
+                password = "";
+            }
+
+            if (expire == undefined) {
+                expire = "";
+            }
+
             var fRows = rows.join(", ");
 
             axios({
@@ -479,7 +490,9 @@ export class sCStorage {
                 data: {
                     bucket: global_this.bucket_id,
                     container: encodeURI(container_name),
-                    rows: fRows
+                    rows: fRows,
+                    password: password,
+                    expire: expire
                 },
             }).then(function (response) {
                 var data = response.data;
@@ -505,6 +518,7 @@ export class sCStorage {
      * @param {array} remove_rows The ids of the existing rows, which should be removed.
      * @param {string} [password] Sets a new password. Leave blank, if you want to keep the current password.
      * @param {string} [expire] Sets a new expire date. Leave blank, if you want to keep the current expire date.
+     * @return {Promise<sCResult>} The function returns you a promise with the result object.
      */
     updateShareLink(container_name, share_id, new_rows, remove_rows, password, expire) {
         var global_this = this;
@@ -571,7 +585,7 @@ export class sCStorage {
 
     /**
      * Returns the already shared links by the currently signed in user.
-     * @returns {Array} The link detailsf
+     * @returns {Promise<sCResult>} The link details.
      */
     getShareLinks() {
         var global_this = this;
