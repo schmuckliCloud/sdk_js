@@ -498,14 +498,75 @@ export class sCStorage {
     }
 
     /**
-     * Updates an existing share id
+     * Updates an existing share with rows, password and/or expire date.
      * @param {string} container_name The name of the container, where the rows are stored.
      * @param {number} share_id The id of the share, which should be updated.
      * @param {array} new_rows The ids of the new rows, which should be added.
      * @param {array} remove_rows The ids of the existing rows, which should be removed.
+     * @param {string} [password] Sets a new password. Leave blank, if you want to keep the current password.
+     * @param {string} [expire] Sets a new expire date. Leave blank, if you want to keep the current expire date.
      */
-    updateShareLink(container_name, share_id, new_rows, remove_rows) {
+    updateShareLink(container_name, share_id, new_rows, remove_rows, password, expire) {
+        var global_this = this;
+        return new Promise(function (resolve, reject) {
+            //Check the properties before sending to the API
+            if (container_name === undefined || container_name === "") {
+                reject(new Error("Please define a container."));
+            }
 
+            if (share_id == undefined || share_id == "") {
+                reject(new Error("Please define a share id."));
+            }
+
+            if (!(new_rows instanceof Array) || !(remove_rows instanceof Array)) {
+                reject(
+                    new Error(
+                        "Please provide an array with row id's."
+                    )
+                );
+            }
+
+            if (password == undefined) {
+                password = "";
+            }
+            if (expire == undefined) {
+                expire = "";
+            }
+
+            var fNewRows = new_rows.join(", ");
+            var fRemoveRows = remove_rows.join(", ");
+
+            axios({
+                url: Config.API_ENDPOINT + "share.php",
+                method: "PUT",
+                headers: {
+                    appid: global_this.appid,
+                    appsecret: global_this.appsecret,
+                    authtoken: global_this.auth_token,
+                },
+                data: {
+                    bucket: global_this.bucket_id,
+                    container: encodeURI(container_name),
+                    share_id: share_id,
+                    new_rows: fNewRows,
+                    remove_rows: fRemoveRows,
+                    password: password,
+                    expire: expire
+                },
+            }).then(function (response) {
+                var data = response.data;
+                if (response.status === 200) {
+                    resolve(new sCResult(data.status, data.message, data.body));
+                } else {
+                    reject(
+                        new Error(
+                            "There was an error while creating a share link. Following error message: " +
+                                data.message
+                        )
+                    );
+                }
+            });
+        });
     }
 
     /**
