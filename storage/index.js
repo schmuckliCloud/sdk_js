@@ -498,6 +498,17 @@ export class sCStorage {
     }
 
     /**
+     * Updates an existing share id
+     * @param {string} container_name The name of the container, where the rows are stored.
+     * @param {number} share_id The id of the share, which should be updated.
+     * @param {array} new_rows The ids of the new rows, which should be added.
+     * @param {array} remove_rows The ids of the existing rows, which should be removed.
+     */
+    updateShareLink(container_name, share_id, new_rows, remove_rows) {
+
+    }
+
+    /**
      * Returns the already shared links by the currently signed in user.
      * @returns {Array} The link detailsf
      */
