@@ -106,7 +106,7 @@ export class sCStorage {
                         limit +
                         "&exclude=" +
                         exclude +
-                        "&share_password=" + (this.sharePassword || ""),
+                        "&share_password=" + (global_this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
@@ -216,7 +216,7 @@ export class sCStorage {
                         limit +
                         "&exclude=" +
                         exclude + 
-                        "&share_password=" + (this.sharePassword || ""),
+                        "&share_password=" + (global_this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
@@ -283,7 +283,7 @@ export class sCStorage {
                         "&filter_connect=" + 
                         filter_connect +
                         "&count=true" +
-                        "&share_password=" + (this.sharePassword || ""),
+                        "&share_password=" + (global_this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
@@ -356,7 +356,7 @@ export class sCStorage {
                         filter_connect +
                         "&sum=" +
                         field_name + 
-                        "&share_password=" + (this.sharePassword || ""),
+                        "&share_password=" + (global_this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
@@ -429,7 +429,7 @@ export class sCStorage {
                         filter_connect +
                         "&avg=" +
                         field_name +
-                        "&share_password=" + (this.sharePassword || ""),
+                        "&share_password=" + (global_this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
