@@ -34,6 +34,14 @@ export class sCStorage {
             this.dataset = "";
         }
     }
+    
+    /**
+     * When you plan to use the future requests with a given share password, assign first this password here and call later the requests as usual.
+     * @param {string} password The clear password, which should be used.
+     */
+    setSharePassword(password) {
+        this.sharePassword = password;
+    }
 
     /**
   Set the bucket id which later should be used to manage data.
@@ -97,7 +105,8 @@ export class sCStorage {
                         "&limit=" +
                         limit +
                         "&exclude=" +
-                        exclude,
+                        exclude +
+                        "&share_password=" + (this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
@@ -206,7 +215,8 @@ export class sCStorage {
                         "&limit=" +
                         limit +
                         "&exclude=" +
-                        exclude,
+                        exclude + 
+                        "&share_password=" + (this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
@@ -272,7 +282,8 @@ export class sCStorage {
                         encodedFilter +
                         "&filter_connect=" + 
                         filter_connect +
-                        "&count=true",
+                        "&count=true" +
+                        "&share_password=" + (this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
@@ -344,7 +355,8 @@ export class sCStorage {
                         "&filter_connect=" +
                         filter_connect +
                         "&sum=" +
-                        field_name,
+                        field_name + 
+                        "&share_password=" + (this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
@@ -416,7 +428,8 @@ export class sCStorage {
                         "&filter_connect=" +
                         filter_connect +
                         "&avg=" +
-                        field_name,
+                        field_name +
+                        "&share_password=" + (this.sharePassword || ""),
                     {
                         headers: {
                             appid: global_this.appid,
