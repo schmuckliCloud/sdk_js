@@ -531,9 +531,10 @@ export class sCStorage {
      * @param {array} remove_rows The ids of the existing rows, which should be removed.
      * @param {string} [password] Sets a new password. Leave blank, if you want to keep the current password.
      * @param {string} [expire] Sets a new expire date. Leave blank, if you want to keep the current expire date.
+     * @param {string} [custom_link] Sets an alias (custom link) for the share, that it can be accessed via that.
      * @return {Promise<sCResult>} The function returns you a promise with the result object.
      */
-    updateShareLink(container_name, share_id, new_rows, remove_rows, password, expire) {
+    updateShareLink(container_name, share_id, new_rows, remove_rows, password, expire, custom_link) {
         var global_this = this;
         return new Promise(function (resolve, reject) {
             //Check the properties before sending to the API
@@ -559,6 +560,9 @@ export class sCStorage {
             if (expire == undefined) {
                 expire = "";
             }
+            if (custom_link == undefined) {
+                custom_link = "";
+            }
 
             var fNewRows = new_rows.join(", ");
             var fRemoveRows = remove_rows.join(", ");
@@ -578,7 +582,8 @@ export class sCStorage {
                     new_rows: fNewRows,
                     remove_rows: fRemoveRows,
                     password: password,
-                    expire: expire
+                    expire: expire,
+                    custom_link: custom_link
                 },
             }).then(function (response) {
                 var data = response.data;
