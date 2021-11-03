@@ -28,13 +28,18 @@ class sCFiles {
      * @param {array} files Contains an array with files from a file input field.
      * @returns {sCResult}
      */
-    async upload(files) {
+    async upload(files, onUploadProgress) {
         if (files == undefined) {
             return new sCResult(400, "Please provide at least one file.");
         }
         if (this.auth_token == undefined) {
             return new sCResult(403, "Please provide an auth token before you do this request.");
         }
+
+        if (onUploadProgress === undefined) {
+            onUploadProgress = function () { }
+        }
+
         // Source: https://www.codegrepper.com/code-examples/javascript/sending+files+to+php+using+axios
         var formData = new FormData();
         var i = 0;
@@ -53,6 +58,7 @@ class sCFiles {
                 "Content-Type": "multipart/form-data",
             },
             data: formData,
+            onUploadProgress: onUploadProgress
         });
 
         return new sCResult(response.data.status, response.data.message, response.data.body);
