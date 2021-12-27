@@ -92,6 +92,36 @@ class sCFiles {
     }
 
     /**
+     * Creates an archive link with the provided filenames and tokens.
+     * @param {array} filenames An array, where the filenames and tokens are combined: [{name: "xyz.jpg", token: "a6f40..."}]
+     * @returns {sCResult} Returns the archive link and the amount of archived files in the body.
+     */
+    async requestArchive(filenames) {
+        var files;
+        try {
+            files = JSON.stringify(filenames);
+        } catch (e) {
+            return new sCResult(400, "Please provide a valid format for the filenames.");
+        }
+
+        var response = await axios({
+            url: Config.API_ENDPOINT,
+            method: "PUT",
+            headers: {
+                appid: this.appid,
+                appsecret: this.appsecret,
+                authtoken: this.auth_token,
+            },
+            data: {
+                function: "request_archive",
+                filenames: files
+            },
+        });
+
+        return new sCResult(response.data.status, response.data.message, response.data.body);
+    }
+
+    /**
      * Deletes the file with the given name.
      * @param {string} filename The name of the file, where the token should be reset.
      * @returns {sCResult} Returns the new token in the body.
