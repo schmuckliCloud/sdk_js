@@ -608,6 +608,48 @@ class sCAuth {
             }.bind(this));
         }.bind(this));
     }
+
+    /**
+     * Deletes an account completly from the system. This step cannot be undone.
+     * @param {String} token The token of the user, from where the export should be made.
+     * @param {String} password The unhashed password to verify, if the user really wants to delete the account.
+     * @return {Promise<sCResult>}
+     */
+    deleteAccount(token, password) {
+        return new Promise(function(resolve, reject) {
+            axios({
+                url: Config.API_ENDPOINT,
+                method: "DELETE",
+                headers: {
+                    appid: this.appid,
+                    appsecret: this.appsecret,
+                    authtoken: token
+                },
+                data: {
+                    agree: true,
+                    password: password
+                }
+            }).then(function(response) {
+                var data = response.data;
+                switch (response.status) {
+                    case 200:
+                    case 404:
+                        resolve(
+                            new sCResult(data.status, data.message, data.body)
+                        );
+                        break;
+                    default:
+                        reject(
+                            new Error(
+                                "There was an error while trying to delete the user account. Following error message: " +
+                                    data.message
+                            )
+                        );
+                        break;
+                }
+            }.bind(this));
+        }.bind(this));
+    }
 }
 
 class sCResult {
