@@ -1,4 +1,4 @@
-import * as Config from "./config.js";
+import Config from "./config.js";
 import axios from "axios";
 
 /**
@@ -10,13 +10,13 @@ class sCAuth {
    * @param {String} app_id The APP ID, which was created for a client app in the schmuckliCloud console.
    * @param {String} app_secret The APP Secret, which was created for a client app in the schmuckliCloud console.
    * @param {String} [service_url] If you want to replace the backend url instead of `https://api.schmuckli.cloud/client_api/v1/auth/`, provide here the new path.
-  */
+   */
   constructor(app_id, app_secret, service_url) {
     this.appid = app_id;
     this.appsecret = app_secret;
 
     if (service_url) {
-      Config.API_ENDPOINT = service_url;
+      Config.updateAPIEndpoint(service_url);
     }
   }
 

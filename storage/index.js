@@ -1,4 +1,4 @@
-import * as Config from "./config.js";
+import Config from "./config.js";
 import axios from "axios";
 
 /**
@@ -16,7 +16,7 @@ export class sCStorage {
     this.appsecret = app_secret;
 
     if (service_url) {
-      Config.API_ENDPOINT = service_url;
+      Config.updateAPIEndpoint(service_url);
     }
   }
 
